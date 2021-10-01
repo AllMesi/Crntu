@@ -3,17 +3,47 @@ import flixel.FlxG;
 import flixel.util.FlxTimer;
 import flixel.text.FlxText;
 import flixel.FlxState;
-import Options;
+import square.Square;
 import lime.app.Application;
+
+using StringTools;
 
 class LoadState extends FlxState
 {
     var l = new FlxText(50, 100, 0, "Loading...", 10, true);
     var l2 = new FlxText(0, 0, 0, "", 10, true);
+    var http = new haxe.Http("https://raw.githubusercontent.com/AllMesi/Square/main/version");
+    var returnedData:Array<String> = [];
     override public function create()
     {
         super.create();
-        Application.current.window.frameRate = 1000;
+        
+			new FlxTimer().start(.9, function(tmr:FlxTimer)
+                {
+        http.onData = function (data:String)
+            {
+                returnedData[0] = data.substring(0, data.indexOf(';'));
+                returnedData[1] = data.substring(data.indexOf('-'), data.length);
+                  if (!Square.VER.contains(returnedData[0].trim()) && !OutdatedAlert.leftState)
+                {
+                    trace('outdated ' + returnedData[0] + ' != ' + Square.VER);
+                    OutdatedAlert.needVer = returnedData[0];
+                    OutdatedAlert.currChanges = returnedData[1];
+                    FlxG.switchState(new OutdatedAlert());
+                }
+                else
+                {
+                    FlxG.switchState(new SplashScreens());
+                }
+            }
+
+            http.onError = function (error) {
+                trace('error: $error');
+                FlxG.switchState(new SplashScreens()); // fail but we go anyway
+              }
+              
+              http.request();
+        });
         l.setFormat('_sans', 10, FlxColor.WHITE, CENTER);
         l.screenCenter(X);
         add(l);
@@ -21,21 +51,21 @@ class LoadState extends FlxState
         add(l2);
 
                     // l2.text = "You have 1 second to skip applying the settings (SPACE)";
-                    new FlxTimer().start(1, function (tmr:FlxTimer)
+                    new FlxTimer().start(0, function (tmr:FlxTimer)
                         {
                             l2.text = "Applying settings";
                         });
 
-        new FlxTimer().start(1.1, function (tmr:FlxTimer)
+        new FlxTimer().start(.8, function (tmr:FlxTimer)
         {
             apply();
-            new FlxTimer().start(0.5, function (tmr:FlxTimer)
+            new FlxTimer().start(.5, function (tmr:FlxTimer)
                 {
                     FlxG.switchState(new SplashScreens());
                 });
         });
     }
-    
+
     override public function update(elapsed:Float)
     {
         if (FlxG.keys.justPressed.SPACE)

@@ -23,7 +23,6 @@ class SplashScreens extends FlxState
 	var cj:FlxText;
 	override public function create()
 	{		
-		Application.current.window.frameRate = 120;
 		Square.unloadmouse();
 			FlxG.camera.fade(FlxColor.BLACK, 0.77, true, function()
 			{
