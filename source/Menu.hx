@@ -13,6 +13,7 @@ class Menu extends FlxState
     var play:FlxButton;
     var back:FlxButton;
     var options:FlxButton;
+    var reset:FlxButton;
 
     override function create() 
     {
@@ -32,12 +33,16 @@ class Menu extends FlxState
         play.loadGraphic(Paths.image('ui/spritesheets/buttons/button'), true, 80, 20);
         add(play);
 
-        // back = new FlxButton(((FlxG.width / 2) - back.width / 2), (FlxG.height / 2) + play.height + 10, "back", b);
+        // back = new FlxButton(((FlxG.width / 2) - back.width / 2), (FlxG.height / 2) + play.height + 10, "back", b);\
         options = new FlxButton(0, 30, "Options", o);
         options.x = ((FlxG.width / 2) - options.width / 2);
 		options.y = (FlxG.height / 2) + play.height + 3;
         options.loadGraphic(Paths.image('ui/spritesheets/buttons/button'), true, 80, 20);
         add(options);
+
+        reset = new FlxButton(100, 0, "reset", r);
+        reset.loadGraphic(Paths.image('ui/spritesheets/buttons/button'), true, 80, 20);
+        add(reset);
 
         back = new FlxButton(0, 30, "Back", b);
         back.x = ((FlxG.width / 2) - back.width / 2);
@@ -62,6 +67,13 @@ class Menu extends FlxState
 
     private function o()
     {
-        FlxG.switchState(new Options());
+        // FlxG.switchState(new Options());
+        FlxG.resetState();
     }
+
+    private function r()
+    {
+        FlxG.resetGame();
+    }
+
 }

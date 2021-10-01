@@ -37,10 +37,12 @@ class Start extends FlxState
 		FlxG.sound.music.fadeIn(4, 0, 0.7);
 //		options = new FlxButton(0, 0, "Options", options);
 //		add(options);
+#if desktop
 		close = new FlxButton(FlxG.width - 28, 8, "X", exitfunc);
 		close.onUp.sound = FlxG.sound.load(Paths.sound('select'));
 		close.loadGraphic(Paths.image('ui/spritesheets/buttons/buttonsmall'), true, 20, 20);
 		// add(close);
+		#end
 		#if flash
 		warnings = new FlxText(0, 0, 0, "this game wont work on flash lmao", 10, true);
 		warnings.setFormat("_sans", 16, FlxColor.WHITE);
@@ -131,10 +133,12 @@ class Start extends FlxState
 						FlxTween.angle(begin, begin.angle, -4, 0.55, {ease: FlxEase.quartInOut});
 				}, 0);
 			}
+			#if desktop
 		if (FlxG.keys.justReleased.ESCAPE)
 			{
 				exitfunc();
 			}
+			#end
 		if (FlxG.keys.justPressed.SPACE)
 		{
 #if !flash
@@ -164,6 +168,7 @@ if (!FlxG.save.data.web)
 //	{
 //		FlxG.switchState(new Options());
 //	}
+	#if desktop
 	function exitfunc()
 	{
 		FlxG.sound.music.fadeOut(0.77, 0);
@@ -178,4 +183,5 @@ if (!FlxG.save.data.web)
 			Sys.exit(0);
 		});
 	}
+	#end
 }

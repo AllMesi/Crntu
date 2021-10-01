@@ -5,7 +5,6 @@ import lime.app.Application;
 import openfl.Lib;
 import flixel.FlxG;
 import flixel.FlxState;
-import square.FlxGKeys;
 import flixel.ui.FlxButton;
 import flixel.text.FlxText;
 import square.FlxBackdrop;
@@ -58,7 +57,6 @@ class Options extends FlxState
 			{
 				FlxG.sound.playMusic(Paths.music('MenuMusic'));
 			}
-            trace("Options State");
 		super.create();
 	}
 
@@ -109,21 +107,6 @@ public static function w()
 		FlxG.fullscreen = false;
 		// FlxG.save.data.w = w();
 	}  
-
-	function e()
-	{
-		FlxG.sound.music.fadeOut(0.77, 0);
-		Application.current.window.borderless = true;
-		trace("Fading");
-		FlxG.camera.fade(FlxColor.BLACK, .77, false, function() {
-			Application.current.window.x = 0;
-			Application.current.window.y = 30;
-			Application.current.window.resize(1280, 720);
-			FlxG.fullscreen = false;
-			trace("Closing...");
-			Sys.exit(0);
-		});
-	}
 
     function b()
     {

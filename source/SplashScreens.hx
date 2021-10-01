@@ -8,9 +8,10 @@ import flixel.FlxG;
 import square.FlxBackdrop;
 import flixel.FlxState;
 import square.Square;
-import square.Info;
+import square.InfoAndConfig;
 import Game;
 import flixel.util.FlxSave;
+import lime.app.Application;
 
 /**
 	The splashscreens for Square.
@@ -22,6 +23,7 @@ class SplashScreens extends FlxState
 	var cj:FlxText;
 	override public function create()
 	{		
+		Application.current.window.frameRate = 120;
 		Square.unloadmouse();
 			FlxG.camera.fade(FlxColor.BLACK, 0.77, true, function()
 			{

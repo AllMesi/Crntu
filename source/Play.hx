@@ -5,7 +5,6 @@ import lime.app.Application;
 import openfl.Lib;
 import flixel.FlxG;
 import flixel.FlxState;
-import square.FlxGKeys;
 import flixel.ui.FlxButton;
 
 class Play extends FlxState

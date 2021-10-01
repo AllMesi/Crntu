@@ -1,0 +1,1 @@
+couldnt be bothered to write a readme for rn

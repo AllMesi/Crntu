@@ -1,19 +1,15 @@
 package;
 
-import square.Square;
-import flixel.FlxG;
 import flixel.FlxGame;
 import openfl.display.Sprite;
-import square.Info;
-import square.Fullscreen;
-import Options;
-import lime.app.Application;
+import square.InfoAndConfig;
+import flixel.FlxG;
 
 class Game extends Sprite
 {
-	var gw = 1280;
-	var gh = 720;
-	var ist = ApplyOptions;
+	var gw = 2560;
+	var gh = 1080;
+	var ist = LoadState;
 	var zoom = 1;
 	var f = 120;
 	var ss = true;
@@ -22,7 +18,6 @@ class Game extends Sprite
 	{
 		super();
 		addChild(new FlxGame(gw, gh, ist, zoom, f, f, ss, sfs));
-		addChild(new Info(10, 3, 0xffffff));
-		trace("Main File");
+		addChild(new InfoAndConfig(10, 3, 0xffffff));
 	}
 }
