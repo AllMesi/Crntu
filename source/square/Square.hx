@@ -24,7 +24,7 @@ class Square extends FlxState
 	// static var CURSOR1:Bool = FlxG.save.data.CURSOR1;
 	// static var CURSOR2:Bool = FlxG.save.data.CURSOR2;
 	// static var CURSOR3:Bool = FlxG.save.data.CURSOR3;
-	static var VERSION = "0.0.1";
+	static var VERSION = "0.1.0";
 	public static var VER = '$VERSION';
 	static var CURSOR = new FlxSprite();
 

@@ -123,16 +123,6 @@ class Start extends FlxState
 
 	override public function update(elapsed:Float)
 	{
-		if (!FlxG.keys.justPressed.SPACE)
-			{
-				new FlxTimer().start(0.01, function(tmr:FlxTimer)
-				{
-					if (begin.angle == -4)
-						FlxTween.angle(begin, begin.angle, 4, 0.55, {ease: FlxEase.quartInOut});
-					if (begin.angle == 4)
-						FlxTween.angle(begin, begin.angle, -4, 0.55, {ease: FlxEase.quartInOut});
-				}, 0);
-			}
 			#if desktop
 		if (FlxG.keys.justReleased.ESCAPE)
 			{

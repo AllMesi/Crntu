@@ -12,6 +12,7 @@ class LoadState extends FlxState
     var l2 = new FlxText(0, 0, 0, "", 10, true);
     override public function create()
     {
+        super.create();
         Application.current.window.frameRate = 1000;
         l.setFormat('_sans', 10, FlxColor.WHITE, CENTER);
         l.screenCenter(X);
