@@ -15,8 +15,7 @@ import openfl.display._internal.stats.DrawCallContext;
 import openfl.Lib;
 
 /**
-	The FPS class provides an easy-to-use monitor to display
-	the current frame rate of an OpenFL project
+	This Displays The Memory, MemoryPeak, And FPS
 **/
 #if !openfl_debug
 @:fileXml('tags="haxe,release"')

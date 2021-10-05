@@ -11,8 +11,15 @@
 	<set name="BUILD_DIR" value="export" />
 	<source path="source" />
 	<assets path="assets" embed='false'/>
+	<assets path='logs' embed='false'/>
 	<assets path="assets/fonts" embed='true'/>
 	<haxelib name="flixel" />
+	<haxelib name="flixel-addons" />
+	<haxelib name="hscript" />
+	<haxelib name="flixel-ui" />
+	<haxelib name="faxe" if='switch'/>
+	<haxelib name="polymod"/>
+	<haxelib name="discord_rpc" if="desktop"/>
 	<haxedef name="FLX_NO_MOUSE" if="mobile" />
 	<haxedef name="FLX_NO_KEYBOARD" if="mobile" />
 	<haxedef name="FLX_NO_TOUCH" if="desktop" />

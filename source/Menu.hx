@@ -14,6 +14,7 @@ class Menu extends FlxState
     var back:FlxButton;
     var options:FlxButton;
     var reset:FlxButton;
+    var test:FlxButton;
 
     override function create() 
     {
@@ -50,13 +51,17 @@ class Menu extends FlxState
         back.loadGraphic(Paths.image('ui/spritesheets/buttons/button'), true, 80, 20);
         add(back);
 
+        test = new FlxButton(300, 0, "Back", t);
+        test.loadGraphic(Paths.image('ui/spritesheets/buttons/button'), true, 80, 20);
+        add(test);
+
         super.create();
     }
 
     private function p() 
     {
         // FlxG.camera.fade(FlxColor.BLACK, .77, false, () -> {
-            FlxG.switchState(new Play());
+            // FlxG.switchState(new Play());
         // });
     }
 
@@ -74,6 +79,12 @@ class Menu extends FlxState
     private function r()
     {
         FlxG.resetGame();
+    }
+
+    private function t()
+    {
+        // FlxG.switchState(new Charting());
+        
     }
 
 }
