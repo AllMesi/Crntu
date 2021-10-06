@@ -1,12 +1,14 @@
-# Changelog
-All notable changes to this project will be documented in this file.
-
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
-
-## [Unreleased (0.1.0)]
-### Changed
-- added OutdatedAlert.hx
-- started working on the main part of the game
-### Fixed
-- nothing
+#
+# Unreleased (0.1.0)
+## Changed
+- Added OutdatedAlert.hx
+## Fixed
+- Nothing
+#
+# Unreleased (0.1.1)
+## Changed
+- Removed Song.hx - Conductor.hx - Note.hx
+- Added PauseSub.hx (it literally doesnt do anything)
+## Fixed
+- Nothing
+#

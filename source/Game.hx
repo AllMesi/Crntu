@@ -30,7 +30,7 @@ class Game extends Sprite
 	var gw = Application.current.window.display.currentMode.width;
 	var gh = Application.current.window.display.currentMode.height;
 	var ist = LoadState;
-	var zoom = 1;
+	var zoom = 3;
 	var f = 120;
 	var ss = true;
 	var sfs = false;
@@ -68,29 +68,15 @@ class Game extends Sprite
 
 		private function setupGame():Void
 		{
-			var sw:Int = Lib.current.stage.stageWidth;
-			var sh:Int = Lib.current.stage.stageHeight;
-
-			// if (zoom == -1)
-			// {
-			// 	var ratioX:Float = sw / gw;
-			// 	var ratioY:Float = sh / gh;
-			// 	zoom = Math.min(ratioX, ratioY);
-			// 	gameWidth = Math.ceil(sh / zoom);
-			// 	gameHeight = Math.ceil(sh / zoom);
-			// }
 			Debug.onInitProgram();
 			addChild(new FlxGame(gw, gh, ist, zoom, f, f, ss, sfs));
-			info = new InfoAndConfig(10, 3, 0xFFFFFF);
-			addChild(info);
+			addChild(new InfoAndConfig(10, 3, 0xFFFFFF));
 			toggleFPS(FlxG.save.data.info);
 		}
 
-		var info:InfoAndConfig;
-
 		public function toggleFPS(infoEnabled:Bool):Void
 		{
-			info.visible = infoEnabled;
+			addChild(new InfoAndConfig(10, 3, 0xFFFFFF)).visible = infoEnabled;
 		}
 
 }

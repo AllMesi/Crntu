@@ -6,6 +6,7 @@ import flixel.FlxG;
 import flixel.ui.FlxButton;
 import flixel.FlxState;
 import square.FlxBackdrop;
+import square.Square;
 
 class Menu extends FlxState
 {
@@ -61,7 +62,7 @@ class Menu extends FlxState
     private function p() 
     {
         // FlxG.camera.fade(FlxColor.BLACK, .77, false, () -> {
-            // FlxG.switchState(new Play());
+            FlxG.switchState(new Play());
         // });
     }
 
@@ -72,8 +73,8 @@ class Menu extends FlxState
 
     private function o()
     {
-        // FlxG.switchState(new Options());
-        FlxG.resetState();
+        FlxG.switchState(new Options());
+        // FlxG.resetState();
     }
 
     private function r()
@@ -84,7 +85,13 @@ class Menu extends FlxState
     private function t()
     {
         // FlxG.switchState(new Charting());
-        
+
     }
+
+	override public function update(elapsed:Float)
+        {
+            Square.shake(0.0005, 100);
+            super.update(elapsed);
+        }
 
 }

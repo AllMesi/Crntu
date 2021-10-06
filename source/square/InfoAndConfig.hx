@@ -88,7 +88,7 @@ class InfoAndConfig extends TextField
 
 //			if (FlxG.save.data.infoCounters)
 //			text += "FPS: " + currentFPS + "\nMem: " + mem + "\nMemPeak: " + memPeak;
-				if (FlxG.fullscreen || Application.current.window.borderless == true || FlxG.keys.pressed.S)
+				if (FlxG.fullscreen || Application.current.window.borderless || FlxG.keys.pressed.S)
 					{
 						Lib.application.window.title = "Square";
 						text += "FPS: " + currentFPS + "\nMem: " + mem + "\nMemPeak: " + memPeak;

@@ -7,7 +7,7 @@ import flixel.FlxG;
 import flixel.FlxState;
 import flixel.ui.FlxButton;
 
-class Play extends FlxState
+class SelectSong extends FlxState
 {
 	public static var curStage:String = '';
     var button1:FlxButton;
@@ -23,7 +23,6 @@ class Play extends FlxState
 			{
 				FlxG.sound.playMusic(Paths.music('MenuMusic'));
 			}
-            trace("Play State");
 		super.create();
 	}
 
@@ -36,5 +35,11 @@ class Play extends FlxState
 	{
 		FlxG.switchState(new Menu());
 	}
+
+	override public function update(elapsed:Float)
+		{
+			Square.shake(0.0005, 100);
+			super.update(elapsed);
+		}
 
 }

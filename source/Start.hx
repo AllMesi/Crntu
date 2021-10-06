@@ -10,7 +10,6 @@ import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
-import square.Square;
 
 class Start extends FlxState
 {
@@ -123,6 +122,7 @@ class Start extends FlxState
 
 	override public function update(elapsed:Float)
 	{
+		Square.shake(0.0005, 100);
 			#if desktop
 		if (FlxG.keys.justReleased.ESCAPE)
 			{
@@ -161,14 +161,14 @@ if (!FlxG.save.data.web)
 	#if desktop
 	function exitfunc()
 	{
+		Application.current.window.x = 0;
+		Application.current.window.y = 30;
+		Application.current.window.resize(Application.current.window.display.currentMode.width, 720);
+		Application.current.window.borderless = false;
+		FlxG.fullscreen = false;
 		FlxG.sound.music.fadeOut(0.77, 0);
-		Application.current.window.borderless = true;
 		trace("Fading");
 		FlxG.camera.fade(FlxColor.BLACK, .77, false, function() {
-			Application.current.window.x = 0;
-			Application.current.window.y = 30;
-			Application.current.window.resize(1280, 720);
-			FlxG.fullscreen = false;
 			trace("Closing...");
 			Sys.exit(0);
 		});
