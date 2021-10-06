@@ -5,7 +5,7 @@
 ## Fixed
 - Nothing
 #
-# Unreleased (0.1.1)
+# Unreleased (0.1.1.2)
 ## Changed
 - Removed Song.hx - Conductor.hx - Note.hx
 - Added PauseSub.hx (it literally doesnt do anything)
