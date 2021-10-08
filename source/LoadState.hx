@@ -17,61 +17,66 @@ class LoadState extends FlxState
     override public function create()
     {
         super.create();
-        
-			new FlxTimer().start(.9, function(tmr:FlxTimer)
+
+        FlxG.mouse.visible = true;
+        FlxG.mouse.useSystemCursor = true;
+
+		new FlxTimer().start(.9, function(tmr:FlxTimer)
+        {
+            http.onData = function (data:String)
                 {
-        http.onData = function (data:String)
-            {
-                returnedData[0] = data.substring(0, data.indexOf(';'));
-                returnedData[1] = data.substring(data.indexOf('-'), data.length);
-                  if (!Square.VER.contains(returnedData[0].trim()) && !OutdatedAlert.leftState)
-                {
-                    trace('outdated ' + returnedData[0] + ' != ' + Square.VER);
-                    OutdatedAlert.needVer = returnedData[0];
-                    OutdatedAlert.currChanges = returnedData[1];
-                    FlxG.switchState(new OutdatedAlert());
+                    returnedData[0] = data.substring(0, data.indexOf(';'));
+                    returnedData[1] = data.substring(data.indexOf('-'), data.length);
+                    if (!Square.VER.contains(returnedData[0].trim()) && !OutdatedAlert.leftState)
+                    {
+                        trace('outdated ' + returnedData[0] + ' != ' + Square.VER);
+                        OutdatedAlert.needVer = returnedData[0];
+                        OutdatedAlert.currChanges = returnedData[1];
+                        FlxG.switchState(new OutdatedAlert());
+                    }
+                    else
+                    {
+                        FlxG.switchState(new SplashScreens());
+                    }
                 }
-                else
-                {
+
+                http.onError = function (error) {
+                    trace('error: $error');
                     FlxG.switchState(new SplashScreens());
                 }
-            }
-
-            http.onError = function (error) {
-                trace('error: $error');
-                FlxG.switchState(new SplashScreens()); // fail but we go anyway
-              }
               
-              http.request();
+                http.request();
         });
+
         l.setFormat('_sans', 10, FlxColor.WHITE, CENTER);
         l.screenCenter(X);
         add(l);
+
         l2.setFormat('_sans', 10, FlxColor.WHITE, CENTER);
         add(l2);
 
-                    // l2.text = "You have 1 second to skip applying the settings (SPACE)";
-                    new FlxTimer().start(0, function (tmr:FlxTimer)
-                        {
-                            l2.text = "Applying settings";
-                        });
+        new FlxTimer().start(0, function (tmr:FlxTimer)
+        {
+            l2.text = "Applying settings";
+        });
 
         new FlxTimer().start(.8, function (tmr:FlxTimer)
         {
             apply();
+
             new FlxTimer().start(.5, function (tmr:FlxTimer)
-                {
-                    FlxG.switchState(new SplashScreens());
-                });
+            {
+                FlxG.switchState(new SplashScreens());
+            });
         });
     }
 
     override public function update(elapsed:Float)
     {
         if (FlxG.keys.justPressed.SPACE)
-            {
-                FlxG.switchState(new SplashScreens());
-            }
+        {
+            FlxG.switchState(new SplashScreens());
+        }
     }
 
     public function apply()

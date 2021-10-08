@@ -21,7 +21,7 @@ import openfl.Lib;
 @:fileXml('tags="haxe,release"')
 @:noDebug
 #end
-class InfoAndConfig extends TextField
+class Info extends TextField
 {
 	public var currentFPS(default, null):Int;
 	public var cacheCount:Int;
@@ -98,6 +98,7 @@ class InfoAndConfig extends TextField
 						Lib.application.window.title = "Square | FPS: " + currentFPS + " | Mem: " + mem + " | MemPeak: " + memPeak;
 						text += "";
 					}
+
 			// 	Lib.application.window.title = "Sqaure | FPS: " + currentFPS + " | Mem: " + mem + " | MemPeak: " + memPeak;
 			// else
 			// 	text += "FPS: " + currentFPS + "\nMem: " + mem + "\nMemPeak: " + memPeak;

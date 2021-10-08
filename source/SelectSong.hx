@@ -16,13 +16,16 @@ class SelectSong extends FlxState
 	var button4:FlxButton;
 	override public function create()
 	{
+		 
         button1 = new FlxButton(0, 0, "Back", b);
 		button1.loadGraphic(Paths.image('ui/spritesheets/buttons/button'), true, 80, 20);
 		add(button1);
+
 		if (!FlxG.sound.music.playing)
-			{
-				FlxG.sound.playMusic(Paths.music('MenuMusic'));
-			}
+		{
+			FlxG.sound.playMusic(Paths.music('MenuMusic'));
+		}
+		
 		super.create();
 	}
 

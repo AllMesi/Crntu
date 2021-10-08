@@ -8,7 +8,7 @@ import flixel.FlxG;
 import square.FlxBackdrop;
 import flixel.FlxState;
 import square.Square;
-import square.InfoAndConfig;
+import square.Info;
 import Game;
 import flixel.util.FlxSave;
 import lime.app.Application;
@@ -23,29 +23,33 @@ class SplashScreens extends FlxState
 	var cj:FlxText;
 	override public function create()
 	{		
+		 
 		Square.unloadmouse();
-			FlxG.camera.fade(FlxColor.BLACK, 0.77, true, function()
+		FlxG.camera.fade(FlxColor.BLACK, 0.77, true, function()
+		{
+			new FlxTimer().start(3, function(tmr:FlxTimer)
 			{
-				new FlxTimer().start(3, function(tmr:FlxTimer)
+				FlxG.camera.fade(FlxColor.BLACK, 0.77, false, function()
 				{
-					FlxG.camera.fade(FlxColor.BLACK, 0.77, false, function()
-					{
-       	             FlxG.switchState(new Start());
-       	         });
-				}, 0);
-      	  });
-			var backdrop = new FlxBackdrop(Paths.image('hf'));
-			backdrop.cameras = [FlxG.camera];
-			backdrop.velocity.set(150, 150);
-			haxeflixel = new FlxText(0, 0, 0, "Made with Haxeflixel", 10, true);
-			haxeflixel.setFormat("_sans", 16, FlxColor.WHITE, CENTER);
-			haxeflixel.screenCenter();
-			cj = new FlxText(0, 0, 0, Square.VER, 10, true);
-			cj.setFormat("_sans", 16, FlxColor.WHITE, CENTER);
-			add(backdrop);
-			add(haxeflixel);
-			add(cj);
-			trace("SplashScreens State");
+       	            FlxG.switchState(new Start());
+       	        });
+			}, 0);
+      	});
+		var backdrop = new FlxBackdrop(Paths.image('hf'));
+		backdrop.cameras = [FlxG.camera];
+		backdrop.velocity.set(150, 150);
+
+		haxeflixel = new FlxText(0, 0, 0, "Made with Haxeflixel", 10, true);
+		haxeflixel.setFormat("_sans", 16, FlxColor.WHITE, CENTER);
+		haxeflixel.screenCenter();
+
+		cj = new FlxText(0, 0, 0, Square.VER, 10, true);
+		cj.setFormat("_sans", 16, FlxColor.WHITE, CENTER);
+
+		add(backdrop);
+		add(haxeflixel);
+		add(cj);
+		
 		super.create();
 	}
 

@@ -13,6 +13,7 @@ import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import lime.utils.Assets;
+import PlayerControls;
 
 using StringTools;
 
@@ -21,10 +22,7 @@ using StringTools;
 **/
 class Square extends FlxState
 {
-	// static var CURSOR1:Bool = FlxG.save.data.CURSOR1;
-	// static var CURSOR2:Bool = FlxG.save.data.CURSOR2;
-	// static var CURSOR3:Bool = FlxG.save.data.CURSOR3;
-	static var VERSION = "0.1.1.2";
+	static var VERSION = "0.1.2.0";
 	public static var VER = '$VERSION';
 	static var CURSOR = new FlxSprite();
 
@@ -34,23 +32,11 @@ class Square extends FlxState
 		FlxG.mouse.unload();
 	}
 
-	// public function new()
-	// {
-	// 	super();
-	// 		CURSOR1 = true;
-	// 		CURSOR2 = false;
-	// 		CURSOR3 = false;
-	// }
-
 	public static function loadmouse()
 	{
 		FlxG.mouse.visible = true;
 		CURSOR.makeGraphic(15, 15, FlxColor.TRANSPARENT);
-		// if (CURSOR1)
 		CURSOR.loadGraphic(Paths.image('ui/cursors/cursor1'));
-//		if (cursor2)
-//		CURSOR.loadGraphic(Paths.image('ui/cursors/cursor2'));
-		// CURSOR1 = true;
 		FlxG.mouse.load(CURSOR.pixels);
 	}
 
@@ -98,14 +84,7 @@ class Square extends FlxState
 		}
 		return dumbArray;
 	}
-    // public static function openURL(LINK:String)
-    // {
-    //     #if linux
-    //     Sys.command('/usr/bin/xdg-open', [LINK, "&"]);
-    //     #else
-    //     FlxG.openURL(LINK);
-    //     #end
-    //     }
+
 	public static function openURL(URL:String, Target:String = "_blank"):Void
 	{
 		#if linux

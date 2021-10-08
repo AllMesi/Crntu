@@ -18,15 +18,17 @@ class OutdatedAlert extends FlxState
 
     override public function create()
     {
+         
         super.create();
         backdrop.cameras = [FlxG.camera];
 		backdrop.velocity.set(0, 150);
 		add(backdrop);
+        
         var txt:FlxText = new FlxText(0, 0, FlxG.width,
 			"HEY! You're running an outdated version of the game!\nCurrent version is "
 			+ ver
 			+ " while the most recent version is "
-			+ needVer
+			+ http
 			+ "! Press Space to go to the github, or ESCAPE to ignore this!!",
 			32);
 		txt.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER);
@@ -39,7 +41,7 @@ class OutdatedAlert extends FlxState
             {
                 Square.openURL("https://github.com/AllMesi/Square");
             }
-            if (FlxG.keys.justPressed.ESCAPE )
+            if (FlxG.keys.justPressed.ESCAPE)
             {
                 leftState = true;
                 FlxG.switchState(new SplashScreens());
