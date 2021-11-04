@@ -1,63 +1,65 @@
 package;
 
-import flixel.util.FlxColor;
-import lime.app.Application;
-import openfl.Lib;
+import flixel.input.mouse.FlxMouse;
 import flixel.FlxG;
-import flixel.FlxState;
-import flixel.ui.FlxButton;
-import square.Square;
+import flixel.FlxObject;
 import flixel.FlxSprite;
+import flixel.FlxState;
+import flixel.addons.display.FlxGridOverlay;
+import flixel.addons.transition.FlxTransitionableState;
+import flixel.graphics.atlas.FlxAtlas;
+import flixel.graphics.frames.FlxAtlasFrames;
+import flixel.group.FlxGroup.FlxTypedGroup;
+import flixel.math.FlxMath;
+import flixel.system.FlxSound;
+import flixel.text.FlxText;
+import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
+import flixel.ui.FlxBar;
+import flixel.util.FlxCollision;
+import flixel.util.FlxColor;
+import flixel.util.FlxSort;
+import flixel.util.FlxStringUtil;
+import flixel.util.FlxTimer;
+import haxe.Json;
+import lime.utils.Assets;
+
+using StringTools;
 
 class Play extends FlxState
 {
-	public static var curStage:String = '';
-    var button1:FlxButton;
-    var button2:FlxButton;
-	var button3:FlxButton;
-	var button4:FlxButton;
-	var one = new FlxSprite(0, 0, Paths.image('white'));
+
+	private var strumLine:FlxSprite;
+
 	override public function create()
 	{
-		 
-		add(one);
+		persistentUpdate = true;
+		persistentDraw = true;
 
-        button1 = new FlxButton(0, 0, "Back", b);
-		button1.loadGraphic(Paths.image('ui/spritesheets/buttons/button'), true, 80, 20);
-		add(button1);
+		strumLine = new FlxSprite(0, 70).makeGraphic(FlxG.width, 10);
+		strumLine.scrollFactor.set();
+		add(strumLine);
 
-        button2 = new FlxButton(0, 20, "VT", vt);
-		button2.loadGraphic(Paths.image('ui/spritesheets/buttons/button'), true, 80, 20);
-		add(button2);
-
-		if (!FlxG.sound.music.playing)
-		{
-			FlxG.sound.playMusic(Paths.music('MenuMusic'));
-		}
+		Square.unloadmouse(false);
 
 		super.create();
 	}
 
-	override public function update(elapsed:Float)
+	override public function update(elapsed)
 	{
-        Square.shake(0.0005, 100);
-        if (!FlxG.keys.pressed.ALT && FlxG.keys.justPressed.ENTER)
-        {
-            final pause = new PauseSub();
-            openSubState(pause);
-        }
 
+		if (FlxG.mouse.justMoved)
+		{
+			FlxG.mouse.x
+			FlxG.mouse.y
+			FlxG.mouse.getWorldPosition();
+		}
+
+		if (FlxG.keys.justPressed.ESCAPE)
+		{
+			Square.loadmouse();
+			FlxG.switchState(new Menu());
+		}
 		super.update(elapsed);
 	}
-
-	function b()
-	{
-		FlxG.switchState(new Menu());
-	}
-
-    function vt()
-    {
-        FlxG.switchState(new VT());
-    }
-
 }

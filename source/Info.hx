@@ -1,4 +1,4 @@
-package square;
+package;
 
 import flixel.util.FlxTimer;
 import openfl.events.Event;
@@ -15,7 +15,7 @@ import openfl.display._internal.stats.DrawCallContext;
 import openfl.Lib;
 
 /**
-	This Displays The Memory, MemoryPeak, And FPS
+	This Displays The Memory, MemoryPeak, And FPS.
 **/
 #if !openfl_debug
 @:fileXml('tags="haxe,release"')
@@ -44,8 +44,8 @@ class Info extends TextField
 		currentFPS = 0;
 		selectable = false;
 		mouseEnabled = false;
-		defaultTextFormat = new TextFormat("_sans", 12, color);
-		text = "FPS:\nMem:\nMemPeak:";
+		defaultTextFormat = new TextFormat('VCR OSD Mono', 12, color);
+		text = "-\n-\n-";
 
 		cacheCount = 0;
 		currentTime = 0;
@@ -77,54 +77,13 @@ class Info extends TextField
 
 		mem = Math.round(System.totalMemory / 1024 / 1024 * 100) / 100;
 		memTotal = System.totalMemory;
-//		mem = Math.round(System.totalMemory / (1e+6));
 		if (mem > memPeak)
 			memPeak = mem;
 
-//		if (currentCount != cacheCount /*&& visible*/)
-//		{
-
-			text = "";
-
-//			if (FlxG.save.data.infoCounters)
-//			text += "FPS: " + currentFPS + "\nMem: " + mem + "\nMemPeak: " + memPeak;
-				if (FlxG.fullscreen || Application.current.window.borderless || FlxG.keys.pressed.S)
-					{
-						Lib.application.window.title = "Square";
-						text += "FPS: " + currentFPS + "\nMem: " + mem + "\nMemPeak: " + memPeak;
-					}
-					else
-					{
-						Lib.application.window.title = "Square | FPS: " + currentFPS + " | Mem: " + mem + " | MemPeak: " + memPeak;
-						text += "";
-					}
-
-			// 	Lib.application.window.title = "Sqaure | FPS: " + currentFPS + " | Mem: " + mem + " | MemPeak: " + memPeak;
-			// else
-			// 	text += "FPS: " + currentFPS + "\nMem: " + mem + "\nMemPeak: " + memPeak;
-
-
-			// #if (gl_stats && !disable_cffi && (!html5 || !canvas))
-			// text += "\ntotalDC: " + Context3DStats.totalDrawCalls();
-			// text += "\nstageDC: " + Context3DStats.contextDrawCalls(DrawCallContext.STAGE);
-			// text += "\nstage3DDC: " + Context3DStats.contextDrawCalls(DrawCallContext.STAGE3D);
-			// #end
-//		}
-
-		if (currentFPS > 126)
-			{
-				trace('the fps is above 126! did something go wrong?' + ' (' + currentFPS + ')');
-				FlxG.log.add('the fps is above 126! did something go wrong?' + ' (' + currentFPS + ')');
-			}
-
-			// if (currentFPS < 120)
-			// 	{
-			// 		trace('the fps is under 120! did something go wrong?' + ' (' + currentFPS + ')');
-			// 		FlxG.log.add('the fps is under 120! did something go wrong?' + ' (' + currentFPS + ')');
-			// 	}
+		text = currentFPS + "\n" + mem + "\n" + memPeak;
 
 		cacheCount = currentCount;
-		}
+	}
 	public function getFrames():Float
 	{
 		return currentFPS;

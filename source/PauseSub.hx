@@ -1,8 +1,6 @@
 import lime.app.Application;
 import openfl.Lib;
 import flixel.ui.FlxButton;
-import square.FlxBackdrop;
-import square.Square;
 import flixel.FlxG;
 import flixel.FlxState;
 import flixel.text.FlxText;
@@ -19,17 +17,13 @@ class PauseSub extends FlxSubState
 	public function new()
 	{
 		super();
-		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
-		bg.alpha = 0.6;
-		bg.scrollFactor.set();
-		add(bg);
 	}
 
 	override public function create()
 	{
 		super.create();
 
-		Square.unloadmouse();
+		Square.unloadmouse(false);
 
 		one = new FlxText(0, 0, 0, "Paused", 42);
 		one.setFormat('_sans', 42, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK, true);

@@ -1,8 +1,6 @@
 import lime.app.Application;
 import openfl.Lib;
 import flixel.ui.FlxButton;
-import square.FlxBackdrop;
-import square.Square;
 import flixel.FlxG;
 import flixel.FlxState;
 import flixel.text.FlxText;
@@ -53,6 +51,7 @@ class PlayerControlsSubState extends FlxSubState
 		add(two);
 		add(three);
 		add(four);
+		FlxG.sound.music.pause();
 	}
 
 	override public function update(elapsed)
@@ -60,15 +59,24 @@ class PlayerControlsSubState extends FlxSubState
 			super.update(elapsed);
 				if (FlxG.keys.justReleased.R)
 				{
-					FlxG.resetGame();
+					FlxG.camera.fade(FlxColor.BLACK, 0.77, false, function()
+					{
+						new FlxTimer().start(1, function(tmr:FlxTimer)
+						{
+							FlxG.resetGame();
+						}, 0);
+					});
 				}
 				if (FlxG.keys.justReleased.C && FlxG.keys.pressed.ESCAPE)
 				{
+					FlxG.sound.music.play();
 					close();
 				}
 				else if (FlxG.keys.justReleased.C)
 				{
+					#if !flash
 					Sys.exit(0);
+					#end
 				}
 		}
 }

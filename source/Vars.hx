@@ -7,11 +7,16 @@ enum Achievements
 
 class Vars 
 {
-    switch (type)
+    public static var itswedmydudes:Int = FlxG.save.data.wed;
+    private var _achievement:Achievements;
+    public function new()
     {
-        case WED:
-            public static var itswedmydudes = 0;
-            itswedmydudes = FlxG.save.data.wed;
-            itswedmydudes++;
+        super();
+        itswedmydudes = 0;
+        switch (_achievement)
+        {
+            case WED:
+                itswedmydudes++;
+        }
     }
 }

@@ -5,8 +5,6 @@ import flixel.text.FlxText;
 import flixel.FlxG;
 import flixel.ui.FlxButton;
 import flixel.FlxState;
-import square.FlxBackdrop;
-import square.Square;
 
 class Menu extends FlxState
 {
@@ -15,6 +13,7 @@ class Menu extends FlxState
     var back:FlxButton;
     var options:FlxButton;
     var reset:FlxButton;
+    var vt:FlxButton;
     var test:FlxButton;
 
     override function create() 
@@ -25,7 +24,7 @@ class Menu extends FlxState
 		backdrop.velocity.set(0, 150);
 		add(backdrop);
 
-        title = new FlxText(50, 100, 0, "Square", 18);
+        title = new FlxText(50, 0, 0, "Square Menu", 18);
         title.setFormat("_sans", 16, FlxColor.WHITE, CENTER);
         title.screenCenter(X);
         add(title);
@@ -44,7 +43,11 @@ class Menu extends FlxState
 
         reset = new FlxButton(100, 0, "reset", r);
         reset.loadGraphic(Paths.image('ui/spritesheets/buttons/button'), true, 80, 20);
-        add(reset);
+        // add(reset);
+
+        vt = new FlxButton(0, 0, "VT", vtlol);
+        vt.loadGraphic(Paths.image('ui/spritesheets/buttons/button'), true, 80, 20);
+        // add(vt);
 
         back = new FlxButton(0, 30, "Back", b);
         back.x = ((FlxG.width / 2) - back.width / 2);
@@ -57,7 +60,7 @@ class Menu extends FlxState
 
     private function p() 
     {
-            FlxG.switchState(new Play());
+        FlxG.switchState(new SelectSong());
     }
 
     private function b()
@@ -75,9 +78,13 @@ class Menu extends FlxState
         FlxG.resetGame();
     }
 
+    public function vtlol() {
+        FlxG.switchState(new VT());
+    }
+
 	override public function update(elapsed:Float)
     {
-        Square.shake(0.0005, 100);
+        // square.shake(0.0005, 100);
         super.update(elapsed);
     }
 }

@@ -4,8 +4,6 @@ import flixel.FlxSprite;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import lime.app.Application;
-import square.Square;
-import square.FlxBackdrop;
 
 class OutdatedAlert extends FlxState
 {
@@ -28,7 +26,7 @@ class OutdatedAlert extends FlxState
 			"HEY! You're running an outdated version of the game!\nCurrent version is "
 			+ ver
 			+ " while the most recent version is "
-			+ http
+			+ needVer
 			+ "! Press Space to go to the github, or ESCAPE to ignore this!!",
 			32);
 		txt.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER);

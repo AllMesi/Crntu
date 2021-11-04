@@ -1,6 +1,5 @@
 import flixel.FlxGame;
 import openfl.display.Sprite;
-import square.Info;
 import flixel.FlxG;
 import lime.app.Application;
 import openfl.events.Event;
@@ -8,13 +7,15 @@ import openfl.Lib;
 
 class Game extends Sprite
 {
-	var gw = Application.current.window.display.currentMode.width;
-	var gh = Application.current.window.display.currentMode.height;
+	var gw = 1280;
+	var gh = 720;
 	var ist = LoadState;
-	var zoom = 3;
+	var zoom = 1;
 	var f = 120;
 	var ss = true;
 	var sfs = false;
+
+	// You can pretty much ignore everything from here on - your code should go in your states.
 
 	public static function game():Void
 	{
@@ -47,6 +48,7 @@ class Game extends Sprite
 
 	private function setupGame():Void
 	{
+		Square.log('Setup from main');
 		addChild(new FlxGame(gw, gh, ist, zoom, f, f, ss, sfs));
 		addChild(new Info(10, 3, 0xFFFFFF));
 		toggleFPS(FlxG.save.data.info);

@@ -1,8 +1,6 @@
 import lime.app.Application;
 import openfl.Lib;
 import flixel.ui.FlxButton;
-import square.FlxBackdrop;
-import square.Square;
 import flixel.FlxG;
 import flixel.FlxState;
 import flixel.text.FlxText;
@@ -24,10 +22,18 @@ class Start extends FlxState
 	var backdrop2 = new FlxBackdrop(Paths.image('sb'));
 	var game:FlxText;
 	var tip:FlxText;
+	var wed:FlxText;
 
 	override public function create()
 	{
-		FlxG.sound.playMusic(Paths.music('MenuMusic'), 0);
+		if (Date.now().getDay() == 3)
+		{
+			wed = new FlxText(0, 0, 0, "ITS WEDSNAYDA MY DUDES", 10, true);
+			wed.setFormat("_sans", 16, FlxColor.WHITE);
+			add(wed);
+		}
+
+		// FlxG.sound.playMusic(Paths.music('MenuMusic'), 0);
 
 		Square.loadmouse();
 
@@ -35,7 +41,7 @@ class Start extends FlxState
 
 		Square.loadmouse();
 
-		FlxG.sound.music.fadeIn(4, 0, 0.7);
+		// FlxG.sound.music.fadeIn(4, 0, .7);
 		
 // 		#if desktop
 		// close = new FlxButton(FlxG.width - 28, 8, "X", exitfunc);
@@ -51,19 +57,14 @@ class Start extends FlxState
 		add(warnings);
 		#end
 
-		ver = new FlxText(50, 100, 0, "Square " + Square.VER, 10, true);
+		ver = new FlxText(50, 0, 0, "Square " + Square.VER, 10, true);
 		ver.setFormat("_sans", 16, FlxColor.WHITE);
 		ver.screenCenter(X);
 		add(ver);
 
-		tip = new FlxText(0, 0, 0, "Press escape in this state to close the game", 10, true);
-		tip.setFormat("_sans", 16, FlxColor.WHITE);
-		add(tip);
-
-		new FlxTimer().start(10, function (tmr:FlxTimer)
-		{
-			tip.text = "";
-		});
+		// tip = new FlxText(0, 0, 0, "Press escape in this state to close the game", 10, true);
+		// tip.setFormat("_sans", 16, FlxColor.WHITE);
+		// add(tip);
 
 		backdrop.cameras = [FlxG.camera];
 		backdrop.velocity.set(0, 150);
@@ -71,25 +72,12 @@ class Start extends FlxState
 
 		FlxG.camera.fade(FlxColor.BLACK, 0.77, true);
 
-		if (!FlxG.save.data.welcome)
-		{
-			first = new FlxText(0, 10, 0, "WELCOME!", 10, true);
-			first.setFormat("_sans", 16, FlxColor.WHITE);
-			add(first);
-			begin = new FlxText(0, 0, 0, "PRESS SPACE TO BEGIN", 10, true);
-			begin.setFormat("_sans", 12, FlxColor.WHITE);
-			begin.screenCenter();
-			add(begin);
-			FlxG.save.data.welcome = true;
-		}
-		else
-		{
-			begin = new FlxText(0, 0, 0, "PRESS SPACE TO BEGIN", 10, true);
-			begin.setFormat("_sans", 16, FlxColor.WHITE);
-			begin.screenCenter();
-			add(begin);
-		}
+		begin = new FlxText(0, 0, 0, "PRESS SPACE TO BEGIN", 10, true);
+		begin.setFormat("_sans", 16, FlxColor.WHITE);
+		begin.screenCenter();
+		add(begin);
 
+		
 		begin.angle = -4;
 
 		new FlxTimer().start(0.01, function(tmr:FlxTimer)
@@ -106,6 +94,7 @@ class Start extends FlxState
 			warnings.setFormat("_sans", 16, FlxColor.WHITE);
 			warnings.screenCenter(X);
 			add(warnings);
+			ver.y = 15;
 
 			new FlxTimer().start(5, function (tmr:FlxTimer)
 			{
@@ -141,72 +130,56 @@ class Start extends FlxState
 					});
 			});
 		});
-
-		// new FlxTimer().start(10, function (tmr:FlxTimer)
-		// 	{
-		// 		warnings = new FlxText(0, 0, 0, "Switching to the Menu State in 30 seconds", 10, true);
-		// 		warnings.setFormat("_sans", 16, FlxColor.WHITE);
-		// 		warnings.screenCenter(X);
-		// 		add(warnings);
-		// 		new FlxTimer().start(5, function (tmr:FlxTimer){warnings.text = "Switching to the Menu State in 25 seconds"})new FlxTimer().start(10, function (tmr:FlxTimer){new FlxTimer().start(10, function (tmr:FlxTimer){warnings.text = "Switching to the Menu State in 10 seconds"new FlxTimer().start(5, function (tmr:FlxTimer){warnings.text = "Switching to the Menu State in 5 seconds"})})warnings.text = "Switching to the Menu State in 20 seconds"new FlxTimer().start(5, function (tmr:FlxTimer){warnings.text = "Switching to the Menu State in 15 seconds"})})new FlxTimer().start(29, function (tmr:FlxTimer){warnings.text = "Switching to the Menu State in 1 second"new FlxTimer().start(1, function (tmr:FlxTimer){FlxG.switchState(new Menu())})})});
-
+		
 		super.create();
 	}
 
 	override public function update(elapsed:Float)
 	{
-		Square.shake(0.0005, 100);
+		if (FlxG.keys.pressed.P && FlxG.keys.pressed.O && FlxG.keys.pressed.I)
+            FlxG.switchState(new BreathOrElse());
 
-		#if desktop
+		// new FlxTimer().start(10, function (tmr:FlxTimer)
+		// {
+		// 	if (tip.alpha > 0)
+		// 	{
+		// 		tip.alpha -= 0.01;
+		// 	}
+		// });
+		// square.shake(0.0005, 100);
+
 		if (FlxG.keys.justReleased.ESCAPE)
 		{
 			exitfunc();
 		}
-		#end
 
 		if (FlxG.keys.justPressed.SPACE)
 		{
-			#if !flash
-			if (!FlxG.save.data.web)
-			{
-				FlxG.save.data.web = true;
-			}
-			#end
-
-			Square.shake(0.77, 0.1, function(){null;}, true);
-
-			Square.flash(FlxColor.WHITE, 1);
-
-			FlxTween.color(begin, 0.30, FlxColor.WHITE, FlxColor.GREEN, {ease: FlxEase.quartInOut});
-
-			begin.size = 30;
-
-			trace("Fading");
-
+			FlxG.drawFramerate = 1000;
+			FlxG.updateFramerate = 1000;
+			FlxG.camera.shake(0.05, 0.1, function(){
+				FlxG.drawFramerate = 120;
+				FlxG.updateFramerate = 120;
+			}, true);
+			FlxG.camera.flash(FlxColor.WHITE, 1);
+			FlxTween.color(begin, 2, FlxColor.WHITE, FlxColor.GREEN, {ease: FlxEase.quartInOut});
+			// begin.size = 30;
+			Square.log("Fading");
 			FlxG.camera.fade(FlxColor.BLACK, 2, false, function()
 			{
-				trace("Switching...");
+				Square.log("Switching...");
 				FlxG.switchState(new Menu());
 			});
-			}
-
+		}
 		super.update(elapsed);
 	}
 
-	#if desktop
 	function exitfunc()
 	{
-		Application.current.window.x = 0;
-		Application.current.window.y = 30;
-		Application.current.window.resize(Application.current.window.display.currentMode.width, 720);
-		Application.current.window.borderless = false;
-		FlxG.fullscreen = false;
-		FlxG.sound.music.fadeOut(0.77, 0);
-		trace("Fading");
-		FlxG.camera.fade(FlxColor.BLACK, .77, false, function() {
-			trace("Closing...");
-			Sys.exit(0);
-		});
+		ver.screenCenter();
+		begin.alpha = 0;
+		backdrop.alpha = 0;
+		ver.text = "Exiting...";
+		Square.exitfunc(true);
 	}
-	#end
 }

@@ -59,69 +59,62 @@ class Paths
 
 	inline static public function txt(key:String, ?library:String)
 	{
-		haxe.Log.trace('data/$key.txt');
+		Square.log('data/$key.txt');
 		return getPath('data/$key.txt', TEXT, library);
 	}
 
     inline static public function ttf(key:String, ?library:String)
     {
-		haxe.Log.trace('fonts/$key.ttf');
+		Square.log('fonts/$key.ttf');
         return getPath('fonts/$key.tff', FONT, library);
     }
 
     inline static public function otf(key:String, ?library:String)
     {
-		haxe.Log.trace('fonts/$key.otf');
+		Square.log('fonts/$key.otf');
         return getPath('fonts/$key.otf', FONT, library);
     }
 
 	inline static public function xml(key:String, ?library:String)
 	{
-		haxe.Log.trace('$key.xml');
+		Square.log('$key.xml');
 		return getPath('$key.xml', TEXT, library);
 	}
 
 	inline static public function json(key:String, ?library:String)
 	{
-		haxe.Log.trace('data/$key.json');
+		Square.log('data/$key.json');
 		return getPath('data/$key.json', TEXT, library);
 	}
 
 	static public function sound(key:String, ?library:String)
 	{
-		haxe.Log.trace('sounds/$key.$SOUND_EXT');
+		Square.log('sounds/$key.$SOUND_EXT');
 		return getPath('sounds/$key.$SOUND_EXT', SOUND, library);
 	}
 
 	inline static public function soundRandom(key:String, min:Int, max:Int, ?library:String)
 	{
-		// haxe.Log.trace('')
 		return sound(key + FlxG.random.int(min, max), library);
 	}
 
 	inline static public function video(key:String, ?library:String)
 	{
-		trace('assets/videos/$key.mp4');
+		Square.log('assets/videos/$key.mp4');
 		return getPath('videos/$key.mp4', BINARY, library);
 	}
 
 	inline static public function music(key:String, ?library:String)
 	{
-		haxe.Log.trace('music/$key.$SOUND_EXT');
+		Square.log('music/$key.$SOUND_EXT');
 		return getPath('music/$key.$SOUND_EXT', MUSIC, library);
 	}
 
 	inline static public function image(key:String, ?library:String)
 	{
-		haxe.Log.trace('images/$key.png');
+		Square.log('images/$key.png');
 		return getPath('images/$key.png', IMAGE, library);
 	}
-
-
-//	inline static public function font(key:String)
-//	{
-//		return 'assets/fonts/$key';
-//	}
 
 	inline static public function getSparrowAtlas(key:String, ?library:String)
 	{

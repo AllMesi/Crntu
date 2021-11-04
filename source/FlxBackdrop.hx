@@ -1,4 +1,4 @@
-package square;
+package;
 
 import flash.display.BitmapData;
 import flash.geom.Point;

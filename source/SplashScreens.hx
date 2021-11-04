@@ -5,33 +5,33 @@ import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import flixel.FlxG;
-import square.FlxBackdrop;
 import flixel.FlxState;
-import square.Square;
-import square.Info;
-import Game;
 import flixel.util.FlxSave;
 import lime.app.Application;
 
 /**
-	The splashscreens for Square.
-**/
+*	unused now bc no one cares
+*/
 
 class SplashScreens extends FlxState
 {
 	var haxeflixel:FlxText;
 	var cj:FlxText;
 	override public function create()
-	{		
-		 
-		Square.unloadmouse();
+	{
+		Square.log("test log", false);
+		Application.current.window.resize(1280, 720);
+		Application.current.window.x = 0;
+		Application.current.window.y = 30;
+		
+		Square.unloadmouse(false);
 		FlxG.camera.fade(FlxColor.BLACK, 0.77, true, function()
 		{
 			new FlxTimer().start(3, function(tmr:FlxTimer)
 			{
 				FlxG.camera.fade(FlxColor.BLACK, 0.77, false, function()
 				{
-       	            FlxG.switchState(new Start());
+       	            FlxG.switchState(new LoadState());
        	        });
 			}, 0);
       	});
@@ -48,7 +48,7 @@ class SplashScreens extends FlxState
 
 		add(backdrop);
 		add(haxeflixel);
-		add(cj);
+		// add(cj);
 		
 		super.create();
 	}

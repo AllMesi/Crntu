@@ -7,10 +7,8 @@ import flixel.FlxG;
 import flixel.FlxState;
 import flixel.ui.FlxButton;
 import flixel.text.FlxText;
-import square.FlxBackdrop;
 import flixel.util.FlxTimer;
 import flixel.math.FlxMath;
-import square.Square;
 
 class Options extends FlxState
 {
@@ -29,7 +27,7 @@ class Options extends FlxState
 		backdrop.velocity.set(0, 150);
 		add(backdrop);
 	
-        title = new FlxText(50, 100, 0, "Options", 18);
+        title = new FlxText(50, 0, 0, "Options", 18);
         title.setFormat("_sans", 16, FlxColor.WHITE, CENTER);
         title.screenCenter(X);
         add(title);
@@ -58,11 +56,6 @@ class Options extends FlxState
 		button4.y = (FlxG.height / 2) + button2.height + 59;
 		add(button4);
 
-		if (!FlxG.sound.music.playing)
-		{
-			FlxG.sound.playMusic(Paths.music('MenuMusic'));
-		}
-
 		super.create();
 	}
 
@@ -73,47 +66,23 @@ class Options extends FlxState
 			FlxG.switchState(new Start());
 		}
 
-		Square.shake(0.0005, 100);
+		// square.shake(0.0005, 100);
 		super.update(elapsed);
 	}
 
     public static function blfs()
 	{
-		FlxG.save.data.blfs = !FlxG.save.data.blfs;
-		FlxG.save.data.fs = false;
-		FlxG.save.data.blfs = true;
-		FlxG.save.data.w = false;
-		trace('Borderless fullscreen');
-		Application.current.window.x = 0;
-		Application.current.window.y = 0;
-		Application.current.window.borderless = true;
-		Application.current.window.resize(Application.current.window.display.currentMode.width, Application.current.window.display.currentMode.height);
-		FlxG.fullscreen = false;
+		Square.setup(true, false, false, true, true);
 	}    
 
 	public static function fs()
 	{
-		FlxG.save.data.fs = !FlxG.save.data.fs;
-		FlxG.save.data.fs = true;
-		FlxG.save.data.blfs = false;
-		FlxG.save.data.w = false;
-		trace('Fullscreen');
-		Application.current.window.borderless = false;
-		FlxG.fullscreen = true;
+		Square.setup(false, true, false, true, true);
 	}  
 
 	public static function w()
 	{
-		FlxG.save.data.w = !FlxG.save.data.w;
-		FlxG.save.data.fs = false;
-		FlxG.save.data.blfs = false;
-		FlxG.save.data.w = true;
-		trace('Windowed');
-		Application.current.window.x = 0;
-		Application.current.window.y = 30;
-		Application.current.window.resize(1280, 720);
-		Application.current.window.borderless = false;
-		FlxG.fullscreen = false;
+		Square.setup(false, false, true, true, true);
 	}  
 
     function b()

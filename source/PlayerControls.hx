@@ -1,8 +1,6 @@
 import lime.app.Application;
 import openfl.Lib;
 import flixel.ui.FlxButton;
-import square.FlxBackdrop;
-import square.Square;
 import flixel.FlxG;
 import flixel.FlxState;
 import flixel.text.FlxText;
@@ -60,9 +58,9 @@ class PlayerControls extends FlxSubState
 		add(one);
 		add(two);
 		add(three);
-		add(five);
-		add(six);
-		add(seven);
+		// add(five);
+		// add(six);
+		// add(seven);
 	}
 
 	override public function update(elapsed)
@@ -81,7 +79,7 @@ class PlayerControls extends FlxSubState
 
 		if (FlxG.keys.pressed.N)
 		{
-			FlxG.switchState(new SplashScreens());
+			close();
 		}
 	}
 
