@@ -17,6 +17,7 @@ class GameOver extends FlxSubState
 {
 	var one:FlxText;
 	var b:FlxSprite;
+
 	public function new()
 	{
 		super();
@@ -29,12 +30,12 @@ class GameOver extends FlxSubState
 		FlxG.sound.music.pause();
 		b = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		b.scrollFactor.set();
-    b.alpha = 0;
+		b.alpha = 0;
 		add(b);
-      var bg = new misc.FlxBackdrop(misc.Paths.image('ds'));
-      bg.cameras = [FlxG.camera];
-      bg.velocity.set(0, 300);
-      add(bg);
+		var bg = new misc.FlxBackdrop(misc.Paths.image('ds'));
+		bg.cameras = [FlxG.camera];
+		bg.velocity.set(0, 300);
+		add(bg);
 
 		Square.unloadmouse(false);
 
@@ -48,30 +49,30 @@ class GameOver extends FlxSubState
 
 		FlxTween.tween(one, {alpha: 1}, .4, {ease: FlxEase.linear});
 		FlxTween.tween(bg, {alpha: 1}, 1, {ease: FlxEase.linear});
-    FlxTween.tween(b, {alpha: 1}, 1, {ease: FlxEase.linear});
+		FlxTween.tween(b, {alpha: 1}, 1, {ease: FlxEase.linear});
 	}
 
 	override public function update(elapsed)
 	{
 		super.update(elapsed);
-    FlxG.camera.shake(.001, 104950);
+		FlxG.camera.shake(.001, 104950);
 
 		if (!FlxG.keys.pressed.ALT && FlxG.keys.justPressed.ENTER)
 		{
 			// FlxTween.tween(one, {alpha: 0}, .4, {ease: FlxEase.quartInOut});
 			// FlxTween.tween(bg, {alpha: 0}, .4, {ease: FlxEase.quartInOut});
-      FlxG.camera.fade(FlxColor.WHITE, 1, false, function()
-      {
-        FlxG.switchState(new menus.Menu());
-        FlxG.camera.fade(FlxColor.WHITE, .4, true, function()
-        {
-          close();
-        });
-      });
+			FlxG.camera.fade(FlxColor.WHITE, 1, false, function()
+			{
+				FlxG.switchState(new menus.Menu());
+				FlxG.camera.fade(FlxColor.WHITE, .4, true, function()
+				{
+					close();
+				});
+			});
 
 			// new FlxTimer().start(.4, function(tmr:FlxTimer)
 			// {
-      //   FlxG.switchState(new Menu());
+			//   FlxG.switchState(new Menu());
 			// 	close();
 			// });
 		}

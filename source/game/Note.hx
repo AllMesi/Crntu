@@ -75,7 +75,7 @@ class Note extends FlxSprite
 
 			// x += width / 2;
 
-      // y += 100;
+			// y += 100;
 
 			// switch (noteData)
 			// {
@@ -95,21 +95,21 @@ class Note extends FlxSprite
 
 			// if (prevNote.noteData < 0)
 			// {
-				// switch (prevNote.noteData)
-				// {
-				// 	case -1:
-				// 		prevNote.animation.play('greenhold');
-				// 	case -2:
-				// 		prevNote.animation.play('redhold');
-				// 	case -3:
-				// 		prevNote.animation.play('bluehold');
-				// 	case -4:
-				// 		prevNote.animation.play('purplehold');
-				// }
+			// switch (prevNote.noteData)
+			// {
+			// 	case -1:
+			// 		prevNote.animation.play('greenhold');
+			// 	case -2:
+			// 		prevNote.animation.play('redhold');
+			// 	case -3:
+			// 		prevNote.animation.play('bluehold');
+			// 	case -4:
+			// 		prevNote.animation.play('purplehold');
+			// }
 
-				// prevNote.offset.y = -19;
-				// prevNote.scale.y *= 2.25;
-				// prevNote.setGraphicSize();
+			// prevNote.offset.y = -19;
+			// prevNote.scale.y *= 2.25;
+			// prevNote.setGraphicSize();
 			// }
 		}
 	}
@@ -145,9 +145,9 @@ class Note extends FlxSprite
 		{
 			if (alpha > .3)
 			{
-        alpha = .3;
-        color /* colour */ = 0xfff000; 
-      }
+				alpha = .3;
+				color /* colour */ = 0xfff000;
+			}
 		}
 	}
 }

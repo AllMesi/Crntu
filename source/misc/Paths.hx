@@ -8,7 +8,6 @@ import openfl.utils.Assets as OpenFlAssets;
 
 class Paths
 {
-
 	inline public static var SOUND_EXT = #if web "mp3" #else "ogg" #end;
 
 	static var currentLevel:String;
@@ -63,17 +62,17 @@ class Paths
 		return getPath('data/$key.txt', TEXT, library);
 	}
 
-    inline static public function ttf(key:String, ?library:String)
-    {
+	inline static public function ttf(key:String, ?library:String)
+	{
 		Square.log('fonts/$key.ttf');
-        return getPath('fonts/$key.tff', FONT, library);
-    }
+		return getPath('fonts/$key.tff', FONT, library);
+	}
 
-    inline static public function otf(key:String, ?library:String)
-    {
+	inline static public function otf(key:String, ?library:String)
+	{
 		Square.log('fonts/$key.otf');
-        return getPath('fonts/$key.otf', FONT, library);
-    }
+		return getPath('fonts/$key.otf', FONT, library);
+	}
 
 	inline static public function xml(key:String, ?library:String)
 	{

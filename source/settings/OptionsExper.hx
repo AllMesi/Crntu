@@ -135,22 +135,22 @@ class OptionsExper extends FlxSubState
 
   public static function blfs()
     {
-      Square.setup(true, false, false, false, true, true);
+      Square.setupWindow(true, false, false, false, true, true);
     }    
   
     public static function fs()
     {
-      Square.setup(false, true, false, false, true, true);
+      Square.setupWindow(false, true, false, false, true, true);
     }  
   
     public static function w()
     {
-      Square.setup(false, false, true, false, true, true);
+      Square.setupWindow(false, false, true, false, true, true);
     }  
 
     public static function wm()
     {
-      Square.setup(false, false, false, true, false, true);
+      Square.setupWindow(false, false, false, true, false, true);
     }
 
 

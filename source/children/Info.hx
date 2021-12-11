@@ -30,17 +30,20 @@ class Info extends TextField
 		The current frame rate, expressed using frames-per-second
 	**/
 	public var currentFPS(default, null):Float = 0.0;
-  var asdkjasdkjsakjskdjaskdjaskdj:Bool = true;
-  public var memPeak:Float = 0;
+
+	var asdkjasdkjsakjskdjaskdjaskdj:Bool = true;
+
+	public var memPeak:Float = 0;
 	public var displayFps = true;
 	public var displayMemory = true;
 	public var displayExtra = true;
 	public var mem:Float;
 	public var memTotal:Float;
 
-  private var cacheCount:Int;
-  private var currentTime:Float;
-  private var times:Array<Float>;
+	private var cacheCount:Int;
+	private var currentTime:Float;
+	private var times:Array<Float>;
+
 	// @:noCompletion private var cacheCount:Int;
 	// @:noCompletion private var currentTime:Float;
 	// @:noCompletion private var times:Array<Float>;
@@ -80,53 +83,53 @@ class Info extends TextField
 		while (times[0] < currentTime - 1000 - 1)
 		{
 			times.shift();
-      // FlxG.scaleMode = new StageSizeScaleMode();
+			// FlxG.scaleMode = new StageSizeScaleMode();
 		}
 
 		var currentCount = times.length;
 		// currentFPS = Math.round((currentCount + cacheCount) / 2);
 
-    // if (Math.isNaN(FlxG.updateFramerate))
-    currentFPS = Math.round((currentCount + cacheCount));
+		// if (Math.isNaN(FlxG.updateFramerate))
+		currentFPS = Math.round((currentCount + cacheCount));
 
 		// if (currentCount != cacheCount /*&& visible*/)
 		// {
-			text = "";
-      // Application.current.window.title = currentFPS;
-      // text += "FPS: " + currentFPS + "\n";
+		text = "";
+		// Application.current.window.title = currentFPS;
+		// text += "FPS: " + currentFPS + "\n";
 
-      var currentCount = times.length;
-      currentFPS = Math.round((currentCount + cacheCount) / 2);
-  
-      memTotal = System.totalMemory;
-      mem = Math.round(memTotal / 1024 / 1024 * 100) / 100;
-      if (mem > memPeak)
-        memPeak = mem;
+		var currentCount = times.length;
+		currentFPS = Math.round((currentCount + cacheCount) / 2);
 
-      text += "Update\n" + currentFPS + "FPS";
-      text += "\nMem\n" + mem + "MB\n";
-      text += memPeak + "MB";
+		memTotal = System.totalMemory;
+		mem = Math.round(memTotal / 1024 / 1024 * 100) / 100;
+		if (mem > memPeak)
+			memPeak = mem;
 
-			// #if (gl_stats && !disable_cffi && (!html5 || !canvas))
-			// text += "\ntotalDC: " + Context3DStats.totalDrawCalls();
-			// text += "\nstageDC: " + Context3DStats.contextDrawCalls(DrawCallContext.STAGE);
-			// text += "\nstage3DDC: " + Context3DStats.contextDrawCalls(DrawCallContext.STAGE3D);
-			// #end
+		text += "Update\n" + currentFPS + "FPS";
+		text += "\nMem\n" + mem + "MB\n";
+		text += memPeak + "MB";
+
+		// #if (gl_stats && !disable_cffi && (!html5 || !canvas))
+		// text += "\ntotalDC: " + Context3DStats.totalDrawCalls();
+		// text += "\nstageDC: " + Context3DStats.contextDrawCalls(DrawCallContext.STAGE);
+		// text += "\nstage3DDC: " + Context3DStats.contextDrawCalls(DrawCallContext.STAGE3D);
+		// #end
 		// }
 
-    if (FlxG.keys.justPressed.F11)
-    {
-      Application.current.window.borderless = false;
-      if (asdkjasdkjsakjskdjaskdjaskdj)
-      {
-        FlxG.fullscreen = true;
-        asdkjasdkjsakjskdjaskdjaskdj = false;
-      }
-      else
-      {
-        FlxG.fullscreen = false;
-      }
-    }
+		if (FlxG.keys.justPressed.F11)
+		{
+			Application.current.window.borderless = false;
+			if (asdkjasdkjsakjskdjaskdjaskdj)
+			{
+				FlxG.fullscreen = true;
+				asdkjasdkjsakjskdjaskdjaskdj = false;
+			}
+			else
+			{
+				FlxG.fullscreen = false;
+			}
+		}
 
 		cacheCount = currentCount;
 	}

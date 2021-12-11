@@ -10,14 +10,14 @@ import misc.LoadState;
 import children.Info;
 import openfl.events.Event;
 import openfl.events.UncaughtErrorEvent;
-// import systools.Dialogs;
 
+// import systools.Dialogs;
 class Game extends openfl.display.Sprite
 {
 	public static var gw = 1280;
 	public static var gh = 720;
-  // var gw = Lib.current.stage.stageWidth;
-  // var gh = Lib.current.stage.stageHeight;
+	// var gw = Lib.current.stage.stageWidth;
+	// var gh = Lib.current.stage.stageHeight;
 	public static var ist = Square;
 	public static var zoom = 1;
 	public static var f = 120;
@@ -43,8 +43,8 @@ class Game extends openfl.display.Sprite
 		{
 			addEventListener(Event.ADDED_TO_STAGE, init);
 		}
-    // Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onCrash);
-    // Dialogs.message("WARNING", "this \"game\" sucks and still has a 0 at the start of the version", false);
+		// Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onCrash);
+		// Dialogs.message("WARNING", "this \"game\" sucks and still has a 0 at the start of the version", false);
 	}
 
 	private function init(?E:Event):Void
@@ -63,8 +63,8 @@ class Game extends openfl.display.Sprite
 		addChild(new FlxGame(gw, gh, ist, zoom, f, f, ss, sfs));
 		addChild(new Info(0, 0, 0xFFFFFF));
 		toggleFPS(FlxG.save.data.info);
-    // FlxG.scaleMode = new StageSizeScaleMode();
-    // FlxG.debugger.toggleKeys = [F3];
+		// FlxG.scaleMode = new StageSizeScaleMode();
+		// FlxG.debugger.toggleKeys = [F3];
 	}
 
 	public function toggleFPS(infoEnabled:Bool):Void

@@ -20,7 +20,7 @@ class Start extends FlxState
 	var ver:FlxText;
 	var options:FlxButton;
 	var close:FlxButton;
-  var backdrop = new misc.FlxBackdrop(misc.Paths.image('sb'));
+	var backdrop = new misc.FlxBackdrop(misc.Paths.image('sb'));
 	var game:FlxText;
 	var tip:FlxText;
 	var wed:FlxText;
@@ -28,21 +28,22 @@ class Start extends FlxState
 
 	override public function create()
 	{
+		FlxG.camera.zoom += 1.2;
 
-    FlxG.camera.zoom += 1.2;
-
-    FlxG.camera.flash(FlxColor.WHITE, 1, function()
-    {
-      FlxTween.tween(camera, {zoom: 1}, .5, {ease: FlxEase.quartInOut});
-      new FlxTimer().start(.5, function(tmr:FlxTimer)
-      {
-        canGo = true;
-      });
-    });
+		FlxG.camera.flash(FlxColor.WHITE, 1, function()
+		{
+			FlxTween.tween(camera, {zoom: 1}, .5, {ease: FlxEase.quartInOut});
+			new FlxTimer().start(.5, function(tmr:FlxTimer)
+			{
+				canGo = true;
+			});
+		});
 
 		if (Date.now().getDay() == 3)
 		{
-			wed = new FlxText(0, 0, 0, "ITS WEDSNAYDA MY DUDES, AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", 10, true);
+			wed = new FlxText(0, 0, 0,
+				"ITS WEDSNAYDA MY DUDES, AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+				10, true);
 			wed.setFormat("_sans", 16, FlxColor.WHITE);
 			add(wed);
 		}
@@ -56,13 +57,13 @@ class Start extends FlxState
 		// Square.loadmouse();
 
 		// FlxG.sound.music.fadeIn(4, 0, .7);
-		
-// 		#if desktop
+
+		// 		#if desktop
 		// close = new FlxButton(FlxG.width - 28, 8, "X", exitfunc);
 		// close.onUp.sound = FlxG.sound.load(Paths.sound('select'));
 		// close.loadGraphic(Paths.image('ui/spritesheets/buttons/buttonsmall'), true, 20, 20);
 		// add(close);
-// 		#end
+		// 		#end
 
 		#if flash
 		warnings = new FlxText(0, 0, 0, "this game wont work on flash lmao", 10, true);
@@ -80,9 +81,9 @@ class Start extends FlxState
 		// tip.setFormat("_sans", 16, FlxColor.WHITE);
 		// add(tip);
 
-    backdrop.cameras = [FlxG.camera];
-    backdrop.velocity.set(0, 150);
-    add(backdrop);
+		backdrop.cameras = [FlxG.camera];
+		backdrop.velocity.set(0, 150);
+		add(backdrop);
 
 		// FlxG.camera.fade(FlxColor.BLACK, 0.77, true);
 
@@ -91,25 +92,24 @@ class Start extends FlxState
 		begin.screenCenter();
 		add(begin);
 
-		
 		begin.angle = 0;
-    FlxTween.angle(begin, begin.angle, -4, 4, {ease: FlxEase.quartInOut});
+		FlxTween.angle(begin, begin.angle, -4, 4, {ease: FlxEase.quartInOut});
 
 		new FlxTimer().start(0.01, function(tmr:FlxTimer)
-			{
-				if (begin.angle == -4)
-					FlxTween.angle(begin, begin.angle, 4, 4, {ease: FlxEase.quartInOut});
-				if (begin.angle == 4)
-					FlxTween.angle(begin, begin.angle, -4, 4, {ease: FlxEase.quartInOut});
-			}, 0);
-		
+		{
+			if (begin.angle == -4)
+				FlxTween.angle(begin, begin.angle, 4, 4, {ease: FlxEase.quartInOut});
+			if (begin.angle == 4)
+				FlxTween.angle(begin, begin.angle, -4, 4, {ease: FlxEase.quartInOut});
+		}, 0);
+
 		super.create();
 	}
 
 	override public function update(elapsed:Float)
 	{
 		// if (FlxG.keys.pressed.P && FlxG.keys.pressed.O && FlxG.keys.pressed.I)
-    //         FlxG.switchState(new BreathOrElse());
+		//         FlxG.switchState(new BreathOrElse());
 
 		if (FlxG.keys.justReleased.ESCAPE)
 		{
@@ -118,43 +118,43 @@ class Start extends FlxState
 
 		if (FlxG.keys.justReleased.SPACE && canGo)
 		{
-        FlxG.camera.shake(0.05, 0.1);
-        FlxG.camera.flash(FlxColor.WHITE, 1);
-        FlxTween.color(begin, .77, FlxColor.WHITE, FlxColor.GREEN, {ease: FlxEase.quartInOut});
-        Square.log("Fading");
-        FlxG.camera.fade(FlxColor.BLACK, .77, false, function()
-        {
-          Square.log("Switching...");
-          FlxG.switchState(new Menu());
-        });
-        FlxTween.tween(camera, {zoom: 30}, 2, {ease: FlxEase.quartInOut});
+			FlxG.camera.shake(0.05, 0.1);
+			FlxG.camera.flash(FlxColor.WHITE, 1);
+			FlxTween.color(begin, .77, FlxColor.WHITE, FlxColor.GREEN, {ease: FlxEase.quartInOut});
+			Square.log("Fading");
+			FlxG.camera.fade(FlxColor.BLACK, .77, false, function()
+			{
+				Square.log("Switching...");
+				FlxG.switchState(new Menu());
+			});
+			FlxTween.tween(camera, {zoom: 30}, 2, {ease: FlxEase.quartInOut});
 		}
 
-    if (FlxG.keys.pressed.SPACE && canGo)
-    {
-      FlxTween.tween(camera, {zoom: 1.2}, .5, {ease: FlxEase.quartInOut});
-    }
+		if (FlxG.keys.pressed.SPACE && canGo)
+		{
+			FlxTween.tween(camera, {zoom: 1.2}, .5, {ease: FlxEase.quartInOut});
+		}
 
 		super.update(elapsed);
 	}
 
 	function exitfunc()
 	{
-    FlxG.sound.music.fadeOut(.73, 0);
-    FlxG.camera.fade(FlxColor.RED, .77, false, function()
-    {
-      #if !html5
-        Sys.exit(0);
-      #end
-    });
-    FlxTween.tween(camera, {zoom: 10}, .77, {ease: FlxEase.quartInOut});
+		FlxG.sound.music.fadeOut(.73, 0);
+		FlxG.camera.fade(FlxColor.RED, .77, false, function()
+		{
+			#if !html5
+			Sys.exit(0);
+			#end
+		});
+		FlxTween.tween(camera, {zoom: 10}, .77, {ease: FlxEase.quartInOut});
 		// ver.screenCenter(X);
 		// begin.alpha = 0;
 		// backdrop.alpha = 0;
-    // FlxTween.tween(begin, {alpha: 0}, .5, {ease: FlxEase.quartInOut});
-    // FlxTween.tween(backdrop, {alpha: 0}, .5, {ease: FlxEase.quartInOut});
+		// FlxTween.tween(begin, {alpha: 0}, .5, {ease: FlxEase.quartInOut});
+		// FlxTween.tween(backdrop, {alpha: 0}, .5, {ease: FlxEase.quartInOut});
 		// ver.text = "Exiting...";
-    // ver.y = 300;
+		// ver.y = 300;
 		// Square.exitfunc(true);
 	}
 }

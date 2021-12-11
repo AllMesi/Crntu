@@ -17,6 +17,7 @@ class SongSelectSub extends FlxSubState
 {
 	var one:FlxText;
 	var bg:FlxSprite;
+
 	public function new()
 	{
 		super();
@@ -29,28 +30,28 @@ class SongSelectSub extends FlxSubState
 		// FlxG.sound.music.pause();
 		bg = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		bg.scrollFactor.set();
-        bg.alpha = 0;
+		bg.alpha = 0;
 		add(bg);
 
-        var button2 = new FlxButton(0, 0, "1", function()
-        {
-            Square.songStart('TheDrop', 100);
-        });
+		var button2 = new FlxButton(0, 0, "1", function()
+		{
+			Square.songStart('TheDrop', 100);
+		});
 
-        button2.x = (FlxG.width / 2) - (button2.width / 2);
+		button2.x = (FlxG.width / 2) - (button2.width / 2);
 		button2.y = (FlxG.height / 2);
-        button2.loadGraphic(misc.Paths.image('ui/spritesheets/buttons/button'), true, 80, 20);
-        add(button2);
+		button2.loadGraphic(misc.Paths.image('ui/spritesheets/buttons/button'), true, 80, 20);
+		add(button2);
 
-        var button1 = new FlxButton(0, 0, "2", function()
-        {
-            Square.songStart('fresh', 100);
-        });
+		var button1 = new FlxButton(0, 0, "2", function()
+		{
+			Square.songStart('fresh', 100);
+		});
 
-        button1.x = (FlxG.width / 2) - (button2.width / 2);
+		button1.x = (FlxG.width / 2) - (button2.width / 2);
 		button1.y = (FlxG.height / 2) + 20;
-        button1.loadGraphic(misc.Paths.image('ui/spritesheets/buttons/button'), true, 80, 20);
-        add(button1);
+		button1.loadGraphic(misc.Paths.image('ui/spritesheets/buttons/button'), true, 80, 20);
+		add(button1);
 
 		one = new FlxText(0, 0, 0, "Select Song (Q to cancel)", 42);
 		one.alpha = 0;

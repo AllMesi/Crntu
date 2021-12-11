@@ -21,6 +21,7 @@ class PlayerControls extends FlxSubState
 	var five:FlxText;
 	var six:FlxButton;
 	var seven:FlxButton;
+
 	public function new()
 	{
 		super();

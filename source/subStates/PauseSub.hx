@@ -26,7 +26,8 @@ class PauseSub extends FlxSubState
 	{
 		super.create();
 
-		FlxG.sound.music.pause();
+    if (FlxG.sound.music.playing)
+		  FlxG.sound.music.pause();
 		bg = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.fromRGB(88, 88, 88, 255));
     bg.y = 1700;
 		bg.scrollFactor.set();
