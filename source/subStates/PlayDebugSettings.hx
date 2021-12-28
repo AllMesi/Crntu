@@ -22,18 +22,18 @@ class PlayDebugSettings extends FlxSubState
 	{
 		super.create();
 
-    if (FlxG.sound.music.playing)
-		  FlxG.sound.music.pause();
+		if (FlxG.sound.music.playing)
+			FlxG.sound.music.pause();
 		bg = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.fromRGB(88, 88, 88, 255));
-    bg.y = 1700;
+		bg.y = 1700;
 		bg.scrollFactor.set();
 		add(bg);
 
-    Square.fps = 60;
+		Crntu.fps = 60;
 
 		one = new FlxText(0, 0, 0, "DEBUG SETTINGS", 42);
 		one.alpha = 0;
-		one.setFormat('_sans', 42, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK, true);
+		one.setFormat("Comic Neue Angular Bold", 42, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK, true);
 		add(one);
 
 		FlxTween.tween(one, {alpha: 1}, 0.4, {ease: FlxEase.quartInOut});

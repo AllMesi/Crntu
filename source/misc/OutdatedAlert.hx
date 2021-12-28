@@ -13,7 +13,7 @@ class OutdatedAlert extends FlxState
 
 	var backdrop = new FlxBackdrop(Paths.image('sb'));
 	var http = new haxe.Http("https://raw.githubusercontent.com/AllMesi/Square/main/version");
-	var ver = Square.VER;
+	var ver = Crntu.VER;
 
 	public static var needVer:String = "a";
 	public static var currChanges:String = "a";
@@ -32,7 +32,7 @@ class OutdatedAlert extends FlxState
 			+ needVer
 			+ "! Press Space to go to the github, or ESCAPE to ignore this!!",
 			32);
-		txt.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER);
+		txt.setFormat("Comic Neue Angular Bold", 32, FlxColor.WHITE, CENTER);
 		txt.screenCenter();
 		add(txt);
 	}
@@ -41,12 +41,12 @@ class OutdatedAlert extends FlxState
 	{
 		if (FlxG.keys.justPressed.SPACE)
 		{
-			Square.openURL("https://github.com/AllMesi/Square");
+			Crntu.openURL("https://github.com/AllMesi/Square");
 		}
 		if (FlxG.keys.justPressed.ESCAPE)
 		{
 			leftState = true;
-			FlxG.switchState(new SplashScreens());
+			FlxG.switchState(new menus.Menu());
 		}
 		super.update(elapsed);
 	}

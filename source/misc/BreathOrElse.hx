@@ -12,7 +12,7 @@ class BreathOrElse extends FlxState
 	override public function create()
 	{
 		hilol = new FlxText(0, 0, 0, "breath", 40, true);
-		hilol.setFormat("_sans", 40, FlxColor.WHITE, CENTER);
+		hilol.setFormat("Comic Neue Angular Bold", 40, FlxColor.WHITE, CENTER);
 		hilol.screenCenter();
 		add(hilol);
 		super.create();

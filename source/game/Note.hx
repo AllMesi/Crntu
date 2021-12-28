@@ -54,28 +54,28 @@ class Note extends FlxSprite
 		switch (Math.abs(noteData))
 		{
 			case 1:
-				x -= swagWidth * 2;
+				x == swagWidth * 2;
 				animation.play('arrowRIGHT0000');
 			case 2:
-				x -= swagWidth * 3;
+				x += swagWidth * 3;
 				animation.play('arrowUP0000');
 			case 3:
 				x += swagWidth * 1;
 				animation.play('arrowDOWN0000');
 			case 4:
-				x -= swagWidth * 0;
+				x += swagWidth * 0;
 				animation.play('arrowLEFT0000');
 		}
 
-		Square.log('$prevNote', false, 'hi lol');
+		Crntu.log('$prevNote', false, 'hi lol');
 
 		if (noteData < 0 && prevNote != null)
 		{
 			// noteScore * 0.2;
 
-			// x += width / 2;
+			x += width / 2;
 
-			// y += 100;
+			y += 100;
 
 			// switch (noteData)
 			// {
@@ -91,7 +91,7 @@ class Note extends FlxSprite
 
 			updateHitbox();
 
-			// x -= width / 2;
+			x -= width / 2;
 
 			// if (prevNote.noteData < 0)
 			// {

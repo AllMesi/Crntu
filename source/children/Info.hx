@@ -9,40 +9,45 @@ import openfl.text.TextFormat;
 import openfl.display._internal.stats.Context3DStats;
 import openfl.display._internal.stats.DrawCallContext;
 // #end
-#if flash
+// #if flash
 import openfl.Lib;
-#end
+// #end
 import flixel.FlxG;
 import flixel.system.scaleModes.StageSizeScaleMode;
 import openfl.system.System;
+import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
+import haxe.Timer;
 
 /**
 	The FPS class provides an easy-to-use monitor to display
 	the current frame rate of an OpenFL project
 **/
-#if !openfl_debug
-@:fileXml('tags="haxe,release,custom"')
-@:noDebug
-#end
 class Info extends TextField
 {
 	/**
 		The current frame rate, expressed using frames-per-second
 	**/
-	public var currentFPS(default, null):Float = 0.0;
+	public static var currentFPS(default, null):Int = 0;
+
+	public static var currentFPSPeak:Int = 0;
 
 	var asdkjasdkjsakjskdjaskdjaskdj:Bool = true;
 
-	public var memPeak:Float = 0;
+	public static var memPeak:Float = 0;
+
 	public var displayFps = true;
 	public var displayMemory = true;
 	public var displayExtra = true;
-	public var mem:Float;
-	public var memTotal:Float;
+
+	public static var mem:Float;
+	public static var memTotal:Float;
 
 	private var cacheCount:Int;
 	private var currentTime:Float;
 	private var times:Array<Float>;
+	var counter = 0;
+	var prevcount = 0;
 
 	// @:noCompletion private var cacheCount:Int;
 	// @:noCompletion private var currentTime:Float;
@@ -58,19 +63,31 @@ class Info extends TextField
 		selectable = false;
 		mouseEnabled = false;
 		defaultTextFormat = new TextFormat("Highway Gothic", 12, color);
-		text = "FPS: ";
+		text = "";
+		width += 10734;
 
 		cacheCount = 0;
 		currentTime = 0;
 		times = [];
 
-		#if flash
-		addEventListener(Event.ENTER_FRAME, function(e)
-		{
-			var time = Lib.getTimer();
-			__enterFrame(time - currentTime);
-		});
-		#end
+    var timer  = new Timer(1000);
+
+    timer.run = function()
+    {
+      text = "";
+      #if debug
+      text += "Draw: " + currentFPS + "/" + currentFPSPeak + "FPS\n";
+      text += "EstimateMemory: " + mem + "/" + memPeak + "MB";
+      #end
+    }
+
+		// #if flash
+		// addEventListener(Event.ENTER_FRAME, function(e)
+		// {
+		// 	var time = Lib.getTimer();
+		// 	__enterFrame(time - currentTime);
+		// });
+		// #end
 	}
 
 	// Event Handlers
@@ -80,55 +97,57 @@ class Info extends TextField
 		currentTime += deltaTime;
 		times.push(currentTime);
 
-		while (times[0] < currentTime - 1000 - 1)
+		while (times[0] < currentTime - 1000)
 		{
 			times.shift();
-			// FlxG.scaleMode = new StageSizeScaleMode();
 		}
 
 		var currentCount = times.length;
 		// currentFPS = Math.round((currentCount + cacheCount) / 2);
 
 		// if (Math.isNaN(FlxG.updateFramerate))
-		currentFPS = Math.round((currentCount + cacheCount));
+		// currentFPS = Math.round((currentCount + cacheCount) / 2);
 
 		// if (currentCount != cacheCount /*&& visible*/)
 		// {
-		text = "";
+		// text = "";
+		++counter;
 		// Application.current.window.title = currentFPS;
 		// text += "FPS: " + currentFPS + "\n";
 
 		var currentCount = times.length;
 		currentFPS = Math.round((currentCount + cacheCount) / 2);
 
+		if (FlxG.keys.pressed.CONTROL && FlxG.mouse.wheel != 0)
+		{
+			FlxG.camera.zoom += (FlxG.mouse.wheel / 10);
+			// FlxTween.tween(FlxG.camera, {zoom: FlxG.camera.zoom += (FlxG.mouse.wheel / 10)}, 1, {ease: FlxEase.linear});
+		}
+
+		if (FlxG.keys.pressed.CONTROL && FlxG.mouse.wheel == 0)
+		{
+			FlxG.camera.zoom -= (FlxG.mouse.wheel / 10);
+			// FlxTween.tween(FlxG.camera, {zoom: FlxG.camera.zoom -= (FlxG.mouse.wheel / 10)}, 1, {ease: FlxEase.linear});
+		}
+
+		if (FlxG.keys.justReleased.F3)
+		{
+			FlxG.debugger.visible = false;
+		}
+
 		memTotal = System.totalMemory;
-		mem = Math.round(memTotal / 1024 / 1024 * 100) / 100;
+		mem = Math.round(memTotal / 1024 / 1024 * 100) / 100 / 2;
+
 		if (mem > memPeak)
 			memPeak = mem;
 
-		text += "Update\n" + currentFPS + "FPS";
-		text += "\nMem\n" + mem + "MB\n";
-		text += memPeak + "MB";
+		if (currentFPS > currentFPSPeak)
+			currentFPSPeak = currentFPS;
 
-		// #if (gl_stats && !disable_cffi && (!html5 || !canvas))
-		// text += "\ntotalDC: " + Context3DStats.totalDrawCalls();
-		// text += "\nstageDC: " + Context3DStats.contextDrawCalls(DrawCallContext.STAGE);
-		// text += "\nstage3DDC: " + Context3DStats.contextDrawCalls(DrawCallContext.STAGE3D);
-		// #end
-		// }
-
-		if (FlxG.keys.justPressed.F11)
+		if (FlxG.keys.justReleased.F3 && FlxG.keys.pressed.R)
 		{
-			Application.current.window.borderless = false;
-			if (asdkjasdkjsakjskdjaskdjaskdj)
-			{
-				FlxG.fullscreen = true;
-				asdkjasdkjsakjskdjaskdjaskdj = false;
-			}
-			else
-			{
-				FlxG.fullscreen = false;
-			}
+			FlxG.resetState();
+			FlxG.debugger.visible = false;
 		}
 
 		cacheCount = currentCount;

@@ -30,7 +30,6 @@ class VT extends FlxState
 		// three.animation.play('Idle');
 		three.animation.addByPrefix('Idle', 'IdllOLe', 24, true);
 		three.animation.play('Idle', true);
-		three.alpha = 2;
 		button1 = new FlxButton(0, 0, "Back", b);
 		button1.loadGraphic(Paths.image('ui/spritesheets/buttons/button'), true, 80, 20);
 		button1.screenCenter();

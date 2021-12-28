@@ -58,38 +58,44 @@ class Paths
 
 	inline static public function txt(key:String, ?library:String)
 	{
-		Square.log('data/$key.txt');
+		Crntu.log('public/data/$key.txt');
 		return getPath('data/$key.txt', TEXT, library);
 	}
 
 	inline static public function ttf(key:String, ?library:String)
 	{
-		Square.log('fonts/$key.ttf');
+		Crntu.log('public/fonts/$key.ttf');
 		return getPath('fonts/$key.tff', FONT, library);
 	}
 
 	inline static public function otf(key:String, ?library:String)
 	{
-		Square.log('fonts/$key.otf');
+		Crntu.log('public/fonts/$key.otf');
 		return getPath('fonts/$key.otf', FONT, library);
 	}
 
 	inline static public function xml(key:String, ?library:String)
 	{
-		Square.log('$key.xml');
+		Crntu.log('public/$key.xml');
 		return getPath('$key.xml', TEXT, library);
 	}
 
 	inline static public function json(key:String, ?library:String)
 	{
-		Square.log('data/$key.json');
+		Crntu.log('public/data/$key.json');
 		return getPath('data/$key.json', TEXT, library);
 	}
 
 	static public function sound(key:String, ?library:String)
 	{
-		Square.log('sounds/$key.$SOUND_EXT');
+		Crntu.log('public/sounds/$key.$SOUND_EXT');
 		return getPath('sounds/$key.$SOUND_EXT', SOUND, library);
+	}
+
+	static public function soundwav(key:String, ?library:String)
+	{
+		Crntu.log('public/sounds/$key.wav');
+		return getPath('sounds/$key.wav', SOUND, library);
 	}
 
 	inline static public function soundRandom(key:String, min:Int, max:Int, ?library:String)
@@ -99,25 +105,25 @@ class Paths
 
 	inline static public function video(key:String, ?library:String)
 	{
-		Square.log('assets/videos/$key.mp4');
+		Crntu.log('public/videos/$key.mp4');
 		return getPath('videos/$key.mp4', BINARY, library);
 	}
 
 	inline static public function music(key:String, ?library:String)
 	{
-		Square.log('music/$key.$SOUND_EXT');
+		Crntu.log('public/music/$key.$SOUND_EXT');
 		return getPath('music/$key.$SOUND_EXT', MUSIC, library);
 	}
 
 	inline static public function songs(key:String, ?library:String)
 	{
-		Square.log('songs/$key.$SOUND_EXT');
+		Crntu.log('public/songs/$key.$SOUND_EXT');
 		return getPath('songs/$key.$SOUND_EXT', MUSIC, library);
 	}
 
 	inline static public function image(key:String, ?library:String)
 	{
-		Square.log('images/$key.png');
+		Crntu.log('public/images/$key.png');
 		return getPath('images/$key.png', IMAGE, library);
 	}
 

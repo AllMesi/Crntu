@@ -83,149 +83,153 @@ class Play extends FlxState
 		persistentUpdate = true;
 		persistentDraw = true;
 
-		// bg.scrollFactor.set();
+		var bg = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.WHITE);
+		bg.scrollFactor.set();
 		add(bg);
-		// loadText.setFormat("_sans", 20, FlxColor.BLACK, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLUE, true);
+		var loadText = new FlxText(0, 0, 0, "Loading...", 30, true);
+		loadText.setFormat("Comic Neue Angular Bold", 20, FlxColor.BLACK, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLUE, true);
 		add(loadText);
 
-		// new FlxTimer().start(.1, function(tmr:FlxTimer)
-		// {
-		// FlxG.sound.playMusic(Paths.songs('cpp-neko/') + curLevel + ".ogg", 1);
-		if (FlxG.sound.music.playing)
+		new FlxTimer().start(.1, function(tmr:FlxTimer)
 		{
-			FlxG.sound.music.fadeOut(.77, 0);
-		}
-		// new FlxTimer().start(3, function(tmr:FlxTimer)
-		// {
-		//   FlxG.sound.playMusic(Paths.songs('cpp-neko/$curLevel'), 1);
-		// });
+			bg.alpha = 0;
+			loadText.alpha = 0;
+			// FlxG.sound.playMusic(Paths.songs('cpp-neko/') + curLevel + ".ogg", 1);
+			if (FlxG.sound.music.playing)
+			{
+				FlxG.sound.music.fadeOut(.77, 0);
+			}
+			// new FlxTimer().start(3, function(tmr:FlxTimer)
+			// {
+			//   FlxG.sound.playMusic(Paths.songs('cpp-neko/$curLevel'), 1);
+			// });
 
-		Square.fps = 0;
-		Square.unloadmouse(false);
+			Crntu.fps = 0;
+			// Crntu.unloadmouse();
 
-		FlxG.camera.flash(FlxColor.BLACK, .30, function()
-		{
-			setup();
+			FlxG.camera.flash(FlxColor.BLACK, .30, function()
+			{
+				setup();
+			});
+
+			lmao = new FlxText(FlxG.width / 2 - 235, FlxG.height * 0.9 - 20, 0, "", 20);
+			lmao.setFormat("Comic Neue Angular Bold", 16, FlxColor.WHITE, CENTER);
+			lmao.alpha = 0;
+			add(lmao);
+
+			missClickText = new FlxText(0, 0, 0, "", 20);
+			missClickText.setFormat("Comic Neue Angular Bold", 16, FlxColor.WHITE, CENTER);
+			add(missClickText);
+
+			tip = new FlxText(50, 20, 0, "", 20);
+			tip.setFormat("Comic Neue Angular Bold", 16, FlxColor.WHITE, CENTER);
+			tip.text = "Controls: XC,. | BPM: " + Conductor.bpm;
+			add(tip);
+
+			strumLine = new FlxSprite(0, 50).makeGraphic(FlxG.width, 10);
+			strumLine.scrollFactor.set();
+			add(strumLine);
+
+			strumLineNotes = new FlxTypedGroup<FlxSprite>();
+			add(strumLineNotes);
+
+			playerStrums = new FlxTypedGroup<FlxSprite>();
+
+			var swagCounter:Int = 0;
+
+			generateSong(curLevel.toLowerCase());
+			countingDown = true;
+			Conductor.songPosition = 0;
+			Conductor.songPosition -= Conductor.crochet * 5;
+
+			// new FlxTimer().start(Conductor.crochet / 1000, function(tmr:FlxTimer)
+			// {
+			// 	switch (swagCounter)
+			// 	{
+			// 		case 0:
+			// 			FlxG.sound.play('assets/sounds/intro3.mp3', 0.6);
+			// 		case 1:
+			// 			var ready:FlxSprite = new FlxSprite().loadGraphic('assets/images/ready.png');
+			// 			ready.scrollFactor.set();
+			// 			ready.screenCenter();
+			// 			add(ready);
+			// 			FlxTween.tween(ready, {y: ready.y += 100, alpha: 0}, Conductor.crochet / 1000, {
+			// 				ease: FlxEase.cubeInOut,
+			// 				onComplete: function(twn:FlxTween)
+			// 				{
+			// 					ready.destroy();
+			// 				}
+			// 			});
+			// 			FlxG.sound.play('assets/sounds/intro2.mp3', 0.6);
+			// 		case 2:
+			// 			var set:FlxSprite = new FlxSprite().loadGraphic('assets/images/set.png');
+			// 			set.scrollFactor.set();
+			// 			set.screenCenter();
+			// 			add(set);
+			// 			FlxTween.tween(set, {y: set.y += 100, alpha: 0}, Conductor.crochet / 1000, {
+			// 				ease: FlxEase.cubeInOut,
+			// 				onComplete: function(twn:FlxTween)
+			// 				{
+			// 					set.destroy();
+			// 				}
+			// 			});
+			// 			FlxG.sound.play('assets/sounds/intro1.mp3', 0.6);
+			// 		case 3:
+			// 			var go:FlxSprite = new FlxSprite().loadGraphic('assets/images/go.png');
+			// 			go.scrollFactor.set();
+			// 			go.screenCenter();
+			// 			add(go);
+			// 			FlxTween.tween(go, {y: go.y += 100, alpha: 0}, Conductor.crochet / 1000, {
+			// 				ease: FlxEase.cubeInOut,
+			// 				onComplete: function(twn:FlxTween)
+			// 				{
+			// 					go.destroy();
+			// 				}
+			// 			});
+			// 			FlxG.sound.play('assets/sounds/introGo.mp3', 0.6);
+			// 		case 4:
+			// 	}
+
+			// 	swagCounter += 1;
+			// 	generateSong('fresh');
+			// }, 5);
+
+			// add(strumLine);
+
+			// camFollow = new FlxObject(0, 0, 1, 1);
+			// camFollow.setPosition(dad.getGraphicMidpoint().x, dad.getGraphicMidpoint().y);
+			// add(camFollow);
+
+			FlxG.camera.follow(camFollow, LOCKON, 0.04);
+			// FlxG.camera.setScrollBounds(0, FlxG.width, 0, FlxG.height);
+			// FlxG.camera.zoom = 1.05;
+
+			FlxG.worldBounds.set(0, 0, FlxG.width, FlxG.height);
+
+			FlxG.fixedTimestep = false;
+
+			healthBarBG = new FlxSprite(0, FlxG.height * 0.9).loadGraphic(Paths.image('ui/game/healthBar'));
+			healthBarBG.screenCenter(X);
+			healthBarBG.scrollFactor.set();
+			// healthBarBG.alpha = 0;
+			add(healthBarBG);
+
+			healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8), Std.int(healthBarBG.height - 8), this,
+				'health', 0, 2);
+			healthBar.scrollFactor.set();
+			healthBar.createFilledBar(0xFFFF0000, 0xFF66FF33);
+			// healthBar.alpha = 0;
+			add(healthBar);
+
+			// healthHeads = new FlxSprite();
+			// var headTex = FlxAtlasFrames.fromSparrow(AssetPaths.healthHeads__png, AssetPaths.healthHeads__xml);
+			// healthHeads.frames = headTex;
+			// healthHeads.animation.add('healthy', [0]);
+			// healthHeads.animation.add('unhealthy', [1]);
+			// healthHeads.y = healthBar.y - (healthHeads.height / 2);
+			// healthHeads.scrollFactor.set();
+			// add(healthHeads);
 		});
-
-		lmao = new FlxText(FlxG.width / 2 - 235, FlxG.height * 0.9 - 20, 0, "", 20);
-		lmao.setFormat("_sans", 16, FlxColor.WHITE, CENTER);
-		lmao.alpha = 0;
-		add(lmao);
-
-		missClickText = new FlxText(0, 0, 0, "", 20);
-		missClickText.setFormat("_sans", 16, FlxColor.WHITE, CENTER);
-		add(missClickText);
-
-		tip = new FlxText(50, 20, 0, "", 20);
-		tip.setFormat("_sans", 16, FlxColor.WHITE, CENTER);
-		tip.text = "Controls: XC,. | BPM: " + Conductor.bpm;
-		add(tip);
-
-		strumLine = new FlxSprite(0, 50).makeGraphic(FlxG.width, 10);
-		strumLine.scrollFactor.set();
-		add(strumLine);
-
-		strumLineNotes = new FlxTypedGroup<FlxSprite>();
-		add(strumLineNotes);
-
-		playerStrums = new FlxTypedGroup<FlxSprite>();
-
-		var swagCounter:Int = 0;
-
-		generateSong(curLevel.toLowerCase());
-		countingDown = true;
-		Conductor.songPosition = 0;
-		Conductor.songPosition -= Conductor.crochet * 5;
-
-		// new FlxTimer().start(Conductor.crochet / 1000, function(tmr:FlxTimer)
-		// {
-		// 	switch (swagCounter)
-		// 	{
-		// 		case 0:
-		// 			FlxG.sound.play('assets/sounds/intro3.mp3', 0.6);
-		// 		case 1:
-		// 			var ready:FlxSprite = new FlxSprite().loadGraphic('assets/images/ready.png');
-		// 			ready.scrollFactor.set();
-		// 			ready.screenCenter();
-		// 			add(ready);
-		// 			FlxTween.tween(ready, {y: ready.y += 100, alpha: 0}, Conductor.crochet / 1000, {
-		// 				ease: FlxEase.cubeInOut,
-		// 				onComplete: function(twn:FlxTween)
-		// 				{
-		// 					ready.destroy();
-		// 				}
-		// 			});
-		// 			FlxG.sound.play('assets/sounds/intro2.mp3', 0.6);
-		// 		case 2:
-		// 			var set:FlxSprite = new FlxSprite().loadGraphic('assets/images/set.png');
-		// 			set.scrollFactor.set();
-		// 			set.screenCenter();
-		// 			add(set);
-		// 			FlxTween.tween(set, {y: set.y += 100, alpha: 0}, Conductor.crochet / 1000, {
-		// 				ease: FlxEase.cubeInOut,
-		// 				onComplete: function(twn:FlxTween)
-		// 				{
-		// 					set.destroy();
-		// 				}
-		// 			});
-		// 			FlxG.sound.play('assets/sounds/intro1.mp3', 0.6);
-		// 		case 3:
-		// 			var go:FlxSprite = new FlxSprite().loadGraphic('assets/images/go.png');
-		// 			go.scrollFactor.set();
-		// 			go.screenCenter();
-		// 			add(go);
-		// 			FlxTween.tween(go, {y: go.y += 100, alpha: 0}, Conductor.crochet / 1000, {
-		// 				ease: FlxEase.cubeInOut,
-		// 				onComplete: function(twn:FlxTween)
-		// 				{
-		// 					go.destroy();
-		// 				}
-		// 			});
-		// 			FlxG.sound.play('assets/sounds/introGo.mp3', 0.6);
-		// 		case 4:
-		// 	}
-
-		// 	swagCounter += 1;
-		// 	generateSong('fresh');
-		// }, 5);
-
-		// add(strumLine);
-
-		// camFollow = new FlxObject(0, 0, 1, 1);
-		// camFollow.setPosition(dad.getGraphicMidpoint().x, dad.getGraphicMidpoint().y);
-		// add(camFollow);
-
-		FlxG.camera.follow(camFollow, LOCKON, 0.04);
-		// FlxG.camera.setScrollBounds(0, FlxG.width, 0, FlxG.height);
-		// FlxG.camera.zoom = 1.05;
-
-		FlxG.worldBounds.set(0, 0, FlxG.width, FlxG.height);
-
-		FlxG.fixedTimestep = false;
-
-		healthBarBG = new FlxSprite(0, FlxG.height * 0.9).loadGraphic(Paths.image('ui/game/healthBar'));
-		healthBarBG.screenCenter(X);
-		healthBarBG.scrollFactor.set();
-		// healthBarBG.alpha = 0;
-		add(healthBarBG);
-
-		healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8), Std.int(healthBarBG.height - 8), this,
-			'health', 0, 2);
-		healthBar.scrollFactor.set();
-		healthBar.createFilledBar(0xFFFF0000, 0xFF66FF33);
-		// healthBar.alpha = 0;
-		add(healthBar);
-
-		// healthHeads = new FlxSprite();
-		// var headTex = FlxAtlasFrames.fromSparrow(AssetPaths.healthHeads__png, AssetPaths.healthHeads__xml);
-		// healthHeads.frames = headTex;
-		// healthHeads.animation.add('healthy', [0]);
-		// healthHeads.animation.add('unhealthy', [1]);
-		// healthHeads.y = healthBar.y - (healthHeads.height / 2);
-		// healthHeads.scrollFactor.set();
-		// add(healthHeads);
-		// });
 		super.create();
 	}
 
@@ -315,12 +319,12 @@ class Play extends FlxState
 				daBeats += 1;
 			}
 
-			Square.log('' + unspawnNotes.length);
+			Crntu.log('' + unspawnNotes.length);
 			playerCounter += 1;
 		}
 
 		unspawnNotes.sort(sortByShit);
-		Square.log('FIRST NOTE ' + unspawnNotes[0]);
+		Crntu.log('FIRST NOTE ' + unspawnNotes[0]);
 	}
 
 	function sortByShit(Obj1:Note, Obj2:Note):Int
@@ -335,7 +339,7 @@ class Play extends FlxState
 		for (i in 0...4)
 		{
 			FlxG.log.add(i);
-			Square.log('$i', false, 'a', false);
+			Crntu.log('$i', false, 'a', false);
 			var babyArrow:FlxSprite = new FlxSprite(-273, strumLine.y);
 			var arrTex = FlxAtlasFrames.fromSparrow(Paths.image('ui/game/spritesheets/notes'), Paths.xml('images/ui/game/spritesheets/notes'));
 			babyArrow.frames = arrTex;
@@ -362,7 +366,7 @@ class Play extends FlxState
 			// if (player == 0)
 			// {
 			FlxG.sound.play(Paths.soundwav('drum'), .2, false);
-			// playerStrums.add(babyArrow);
+			playerStrums.add(babyArrow);
 			// }
 
 			switch (Math.abs(i + 1))
@@ -371,22 +375,22 @@ class Play extends FlxState
 					babyArrow.x += Note.swagWidth * 2;
 					babyArrow.animation.addByPrefix('static', 'arrowUP');
 					babyArrow.animation.addByPrefix('pressed', 'up press', 24, false);
-					babyArrow.animation.addByPrefix('confirm', 'up confirm', 24, false);
+				// babyArrow.animation.addByPrefix('confirm', 'up confirm', 24, false);
 				case 2:
 					babyArrow.x += Note.swagWidth * 3;
 					babyArrow.animation.addByPrefix('static', 'arrowRIGHT');
 					babyArrow.animation.addByPrefix('pressed', 'right press', 24, false);
-					babyArrow.animation.addByPrefix('confirm', 'right confirm', 24, false);
+				// babyArrow.animation.addByPrefix('confirm', 'right confirm', 24, false);
 				case 3:
 					babyArrow.x += Note.swagWidth * 1;
 					babyArrow.animation.addByPrefix('static', 'arrowDOWN');
 					babyArrow.animation.addByPrefix('pressed', 'down press', 24, false);
-					babyArrow.animation.addByPrefix('confirm', 'down confirm', 24, false);
+				// babyArrow.animation.addByPrefix('confirm', 'down confirm', 24, false);
 				case 4:
 					babyArrow.x += Note.swagWidth * 0;
 					babyArrow.animation.addByPrefix('static', 'arrowLEFT');
 					babyArrow.animation.addByPrefix('pressed', 'left press', 24, false);
-					babyArrow.animation.addByPrefix('confirm', 'left confirm', 24, false);
+					// babyArrow.animation.addByPrefix('confirm', 'left confirm', 24, false);
 			}
 
 			babyArrow.animation.play('static');
@@ -394,9 +398,9 @@ class Play extends FlxState
 			babyArrow.x += ((FlxG.width / 2) * player);
 
 			strumLineNotes.add(babyArrow);
-			Square.log('added an arrow or whatever');
+			Crntu.log('added an arrow or whatever');
 		}
-		Square.log('added an arrow or whatever');
+		Crntu.log('added an arrow or whatever');
 	}
 
 	var sectionScored:Bool = false;
@@ -411,17 +415,19 @@ class Play extends FlxState
 			lmao.screenCenter(X);
 			Conductor.songPosition += FlxG.elapsed * 1000;
 		}
-		else
-		{
-			lmao.text = "stats unavailable due to notes not updating";
-			lmao.screenCenter(X);
-		}
+		// else
+		// {
+		// 	lmao.text = "stats unavailable due to notes not updating";
+		// 	lmao.screenCenter(X);
+		// }
 
+		#if debug
 		if (FlxG.keys.pressed.D && FlxG.keys.justPressed.E)
 		{
 			final pause = new subStates.PlayDebugSettings();
 			openSubState(pause);
 		}
+		#end
 
 		if (FlxG.keys.justPressed.R)
 		{
@@ -440,10 +446,6 @@ class Play extends FlxState
 		if (updatingNotes)
 		{
 			missClickText.text = "MissClicks: " + missClicks;
-		}
-		else
-		{
-			missClickText.text = "stats unavailable due to notes not updating";
 		}
 
 		// healthHeads.setGraphicSize(Std.int(FlxMath.lerp(100, healthHeads.width, 0.98)));
@@ -510,7 +512,7 @@ class Play extends FlxState
 			switch (totalBeats)
 			{
 				case 163:
-					Square.songNext('bopeebo');
+					Crntu.songNext('bopeebo');
 			}
 		}
 
@@ -519,7 +521,7 @@ class Play extends FlxState
 			switch (totalBeats)
 			{
 				case 127:
-					Square.songStart('fresh', 100);
+					Crntu.songStart('fresh', 100);
 			}
 		}
 
@@ -703,8 +705,8 @@ class Play extends FlxState
 			daLoop++;
 		}
 
-		Square.log('' + combo);
-		Square.log('' + seperatedScore);
+		Crntu.log('' + combo);
+		Crntu.log('' + seperatedScore);
 
 		coolText.text = Std.string(seperatedScore);
 		// add(coolText);
@@ -755,7 +757,7 @@ class Play extends FlxState
 				if (daNote.canBeHit && daNote.mustPress && !daNote.tooLate)
 				{
 					possibleNotes.push(daNote);
-					Square.log('NOTE-' + daNote.strumTime + ' ADDED');
+					Crntu.log('NOTE-' + daNote.strumTime + ' ADDED');
 				}
 			});
 
@@ -906,10 +908,10 @@ class Play extends FlxState
 			// }
 			if (missClicks >= 200)
 			{
-				Square.fps = 30;
+				Crntu.fps = 30;
 				new FlxTimer().start(3, function(tmr:FlxTimer)
 				{
-					Square.fps = 0;
+					Crntu.fps = 0;
 				});
 			}
 			if (missClicks >= 500)
@@ -959,8 +961,6 @@ class Play extends FlxState
 		// }
 		// FlxTween.tween(strumLine, {alpha: 0}, 3, {ease: FlxEase.quartInOut});
 		// FlxTween.tween(tip, {alpha: 0}, 3, {ease: FlxEase.quartInOut});
-		// bg.alpha = 0;
-		// loadText.alpha = 0;
 	}
 
 	function badNoteCheck()
@@ -977,7 +977,7 @@ class Play extends FlxState
 	function noteCheck(keyP:Bool, note:Note):Void
 	{
 		FlxG.sound.play(Paths.soundwav('drum'), .2, false);
-		Square.log(note.noteData + ' note check here ' + keyP);
+		Crntu.log(note.noteData + ' note check here ' + keyP);
 		if (keyP)
 			goodNoteHit(note);
 		else

@@ -18,11 +18,6 @@ class SongSelectSub extends FlxSubState
 	var one:FlxText;
 	var bg:FlxSprite;
 
-	public function new()
-	{
-		super();
-	}
-
 	override public function create()
 	{
 		super.create();
@@ -35,7 +30,7 @@ class SongSelectSub extends FlxSubState
 
 		var button2 = new FlxButton(0, 0, "1", function()
 		{
-			Square.songStart('TheDrop', 100);
+			Crntu.songStart('TheDrop', 100);
 		});
 
 		button2.x = (FlxG.width / 2) - (button2.width / 2);
@@ -45,7 +40,7 @@ class SongSelectSub extends FlxSubState
 
 		var button1 = new FlxButton(0, 0, "2", function()
 		{
-			Square.songStart('fresh', 100);
+			Crntu.songStart('fresh', 100);
 		});
 
 		button1.x = (FlxG.width / 2) - (button2.width / 2);
@@ -55,7 +50,7 @@ class SongSelectSub extends FlxSubState
 
 		one = new FlxText(0, 0, 0, "Select Song (Q to cancel)", 42);
 		one.alpha = 0;
-		one.setFormat('_sans', 42, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK, true);
+		one.setFormat("Comic Neue Angular Bold", 42, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK, true);
 		add(one);
 
 		FlxTween.tween(one, {alpha: 1}, .4, {ease: FlxEase.quartInOut});

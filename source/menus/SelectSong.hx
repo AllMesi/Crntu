@@ -27,7 +27,7 @@ class SelectSong extends FlxState
 		add(backdrop);
 
 		title = new FlxText(50, 100, 0, "Select Song", 18);
-		title.setFormat("_sans", 16, FlxColor.WHITE, CENTER);
+		title.setFormat("Comic Neue Angular Bold", 16, FlxColor.WHITE, CENTER);
 		title.screenCenter(X);
 		add(title);
 
@@ -64,7 +64,7 @@ class SelectSong extends FlxState
 		// new FlxTimer().start(.77, function(tmr:FlxTimer)
 		// {
 		// FlxG.switchState(new Play());
-		// Square.songStart('bopeebo');
+		// Crntu.songStart('bopeebo');
 		final sel = new subStates.SongSelectSub();
 		openSubState(sel);
 		// });

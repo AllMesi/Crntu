@@ -37,13 +37,13 @@ class GameOver extends FlxSubState
 		bg.velocity.set(0, 300);
 		add(bg);
 
-		Square.unloadmouse(false);
+		// Crntu.unloadmouse();
 
-		Square.fps = 120;
+		Crntu.fps = 120;
 
 		one = new FlxText(0, 0, 0, "You Died", 42);
 		one.alpha = 0;
-		one.setFormat('_sans', 42, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK, true);
+		one.setFormat("Comic Neue Angular Bold", 42, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK, true);
 		one.screenCenter();
 		add(one);
 

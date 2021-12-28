@@ -9,88 +9,203 @@ import flixel.ui.FlxButton;
 import flixel.text.FlxText;
 import flixel.util.FlxTimer;
 import flixel.math.FlxMath;
+import flixel.util.FlxAxes;
+import flixel.addons.ui.FlxUI;
+import flixel.addons.ui.FlxUI9SliceSprite;
+import flixel.addons.ui.FlxUIButton;
+import flixel.addons.ui.FlxUICheckBox;
+import flixel.addons.ui.FlxUIRadioGroup;
+import flixel.addons.ui.FlxUISprite;
+import flixel.addons.ui.FlxUITabMenu;
+import flixel.addons.ui.FlxUIText;
+import flixel.addons.ui.FlxUIState;
+import flash.geom.Rectangle;
 
-class Options extends FlxState
+class Options extends FlxUIState
 {
-    var title:FlxText;
-    var button1:FlxButton;
-    var button2:FlxButton;
-	var button3:FlxButton;
-	var button4:FlxButton;
-	var button5:FlxButton;
-    var options:FlxButton;
 	override public function create()
 	{
-        var backdrop = new misc.FlxBackdrop(misc.Paths.image('sb'));
-        backdrop.cameras = [FlxG.camera];
-		backdrop.velocity.set(0, 150);
-		add(backdrop);
-  // im bad at tab
-        title = new FlxText(50, 0, 0, "Options", 18);
-        title.setFormat("_sans", 16, FlxColor.WHITE, CENTER);
-        title.screenCenter(X);
-        add(title);
+		super.create();
+		// NO XML is referenced or created!
+		/***Basic Sprite***/
 
-        button1 = new FlxButton(0, 0, "Borderless Fullscreen", blfs);
-		button1.loadGraphic(misc.Paths.image('ui/spritesheets/buttons/button'), true, 80, 29);
-        button1.x = (FlxG.width / 2) - (button1.width / 2);
-		button1.y = (FlxG.height / 2);
+		// var back = new FlxUISprite(0, 0, "assets/gfx/ui/title_back.png");
+
+		// add(back);
+
+		/***Basic Text***/
+
+		var text = new FlxUIText(0, 150, 350, _tongue.get("$CODE_DESC", "ui"));
+
+		text.x = (FlxG.width - text.width) / 2;
+		text.alignment = CENTER;
+		add(text);
+
+		/***Basic Chrome***/
+
+		var chrome = new FlxUI9SliceSprite(50, 180, null, new Rectangle(0, 0, 700, 300));
+
+		add(chrome);
+
+		/***Check boxes***/
+
+		var check_1 = new FlxUICheckBox(60, 200, null, null, _tongue.get("$MENU_THING_1", "ui"), 100, ["thing 1"]);
+
+		var check_2 = new FlxUICheckBox(60, check_1.y + 20, null, null, _tongue.get("$MENU_THING_2", "ui"), 100, ["thing 2"]);
+
+		add(check_1);
+		add(check_2);
+
+		/***Radio group***/
+
+		var radio_1 = new FlxUIRadioGroup(170, 200, ["1_fish", "2_fish", "0xff000000_fish", "0x0000ff_fish"], [
+			_tongue.get("$MENU_1_FISH", "ui"),
+			_tongue.get("$MENU_2_FISH", "ui"),
+			_tongue.get("$MENU_RED_FISH", "ui"),
+			_tongue.get("$MENU_BLUE_FISH", "ui")
+		]);
+
+		add(radio_1);
+
+		/***Toggle buttons***/
+
+		var button1 = new FlxUIButton(300, 200, _tongue.get("$MENU_TOGGLE", "ui"));
+
+		button1.loadGraphicSlice9(null, 0, 0, null, FlxUI9SliceSprite.TILE_NONE, -1, true);
+
+		var button2 = new FlxUIButton(300, 230, _tongue.get("$MENU_TOGGLE", "ui"));
+		button2.loadGraphicSlice9(null, 0, 0, null, FlxUI9SliceSprite.TILE_NONE, -1, true);
+
+		var button3 = new FlxUIButton(300, 260, _tongue.get("$MENU_TOGGLE", "ui"));
+		button3.loadGraphicSlice9(null, 0, 0, null, FlxUI9SliceSprite.TILE_NONE, -1, true);
+
+		var button4 = new FlxUIButton(300, 290, _tongue.get("$MENU_TOGGLE", "ui"));
+		button4.loadGraphicSlice9(null, 0, 0, null, FlxUI9SliceSprite.TILE_NONE, -1, true);
+
 		add(button1);
-
-       	button2 = new FlxButton(0, 50, "Fullscreen", fs);
-		button2.loadGraphic(misc.Paths.image('ui/spritesheets/buttons/button'), true, 80, 20);
-        button2.x = ((FlxG.width / 2) - button2.width / 2);
-		button2.y = (FlxG.height / 2) + button1.height + 3;
 		add(button2);
-
-		button3 = new FlxButton(0, 100, "Windowed", w);
-		button3.loadGraphic(misc.Paths.image('ui/spritesheets/buttons/button'), true, 80, 20);
-		button3.x = ((FlxG.width / 2) - button3.width / 2);
-		button3.y = (FlxG.height / 2) + button1.height + 26;
 		add(button3);
-
-		button4 = new FlxButton(0, 150, "Back", b);
-		button4.loadGraphic(misc.Paths.image('ui/spritesheets/buttons/button'), true, 80, 20);
-        button4.x = ((FlxG.width / 2) - button3.width / 2);
-		button4.y = (FlxG.height / 2) + button2.height + 59;
 		add(button4);
 
-		super.create();
+		/***TAB GROUP***/
+
+		// This one is particularly unwieldy to create by hand
+
+		// Define the tabs:
+		// var tabs = [
+		// 	{name: "tab_1", label: _tongue.get("$MENU_TAB_1", "ui")},
+		// 	{name: "tab_2", label: _tongue.get("$MENU_TAB_2", "ui")},
+		// 	{name: "tab_3", label: _tongue.get("$MENU_TAB_3", "ui")},
+		// 	{name: "tab_4", label: _tongue.get("$MENU_TAB_4", "ui")}
+		// ];
+
+		// Make the tab menu itself:
+		// var tab_menu = new FlxUITabMenu(null, tabs, true);
+		// tab_menu.x = 500;
+		// tab_menu.y = 212;
+
+		// Now make some content for it:
+
+		/***TAB GROUP 1***/
+		// var tabs_radio_1 = new FlxUIRadioGroup(10, 10, ["1_fish", "2_fish", "0xff000000_fish", "0x0000ff_fish"], [
+		// 	_tongue.get("$MENU_1_FISH", "ui"),
+		// 	_tongue.get("$MENU_2_FISH", "ui"),
+		// 	_tongue.get("$MENU_RED_FISH", "ui"),
+		// 	_tongue.get("$MENU_BLUE_FISH", "ui")
+		// ]);
+
+		// var tab_group_1 = new FlxUI(null, tab_menu, null, _tongue);
+		// tab_group_1.name = "tab_1";
+		// tab_group_1.add(tabs_radio_1);
+
+		// /***TAB GROUP 2***/
+		// var tabs_check_1 = new FlxUICheckBox(10, 10, null, null, _tongue.get("$MENU_THING_1", "ui"), 100, ["thing 1"]);
+
+		// var tabs_check_2 = new FlxUICheckBox(10, 40, null, null, _tongue.get("$MENU_THING_2", "ui"), 100, ["thing 2"]);
+
+		// var tab_group_2 = new FlxUI(null, tab_menu, null, _tongue);
+		// tab_group_2.name = "tab_2";
+		// tab_group_2.add(tabs_check_1);
+		// tab_group_2.add(tabs_check_2);
+
+		// // Add tab groups to tab menu
+		// tab_menu.addGroup(tab_group_1);
+		// tab_menu.addGroup(tab_group_2);
+
+		// Add tab group itself to the state
+		// add(tab_menu);
+
+		/***"Back" button***/
+
+		var back_btn = new FlxUIButton(0, 535, _tongue.get("$MISC_BACK", "ui"));
+
+		back_btn.params = ["back"];
+
+		var W:Int = 0;
+		if (_tongue.locale == "nb-NO")
+		{
+			W = 96;
+		}
+		back_btn.loadGraphicSlice9(null, W, 0, null);
+		back_btn.name = "start";
+		back_btn.x = (FlxG.width - back_btn.width) / 2;
+
+		add(back_btn);
+	}
+
+	override public function getRequest(event:String, sender:Dynamic, data:Dynamic, ?params:Array<Dynamic>):Dynamic
+	{
+		return null;
+	}
+
+	override public function getEvent(event:String, target:Dynamic, data:Dynamic, ?params:Array<Dynamic>):Void
+	{
+		if (params != null)
+		{
+			switch (event)
+			{
+				case "click_button":
+					switch (Std.string(params[0]))
+					{
+						case "back": FlxG.switchState(new menus.Menu());
+					}
+			}
+		}
 	}
 
 	override public function update(elapsed:Float)
 	{
-		if(FlxG.keys.justPressed.ESCAPE)
+		if (FlxG.keys.justPressed.ESCAPE)
 		{
 			FlxG.switchState(new menus.Menu());
 		}
 
-		// square.shake(0.0005, 100);
+		// Crntu.shake(0.0005, 100);
 		super.update(elapsed);
 	}
 
-    public static function blfs()
+	public static function blfs()
 	{
-		Square.setupWindow(true, false, false, true, true);
-	}    
+		Crntu.setupWindow(true, false, false, true, true);
+	}
 
 	public static function fs()
 	{
-		Square.setupWindow(false, true, false, true, true);
-	}  
+		Crntu.setupWindow(false, true, false, true, true);
+	}
 
 	public static function w()
 	{
-		Square.setupWindow(false, false, true, true, true);
-	}  
-  
-  public static function wm()
-  {
-    Square.setupWindow(false, false, false, true, false, true);
-  }
+		Crntu.setupWindow(false, false, true, true, true);
+	}
 
-    function b()
-    {
-        FlxG.switchState(new menus.Menu());
-    }
+	public static function wm()
+	{
+		Crntu.setupWindow(false, false, false, true, false, true);
+	}
+
+	function b()
+	{
+		FlxG.switchState(new menus.Menu());
+	}
 }

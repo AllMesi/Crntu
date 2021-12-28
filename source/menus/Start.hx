@@ -44,17 +44,17 @@ class Start extends FlxState
 			wed = new FlxText(0, 0, 0,
 				"ITS WEDSNAYDA MY DUDES, AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
 				10, true);
-			wed.setFormat("_sans", 16, FlxColor.WHITE);
+			wed.setFormat("Comic Neue Angular Bold", 16, FlxColor.WHITE);
 			add(wed);
 		}
 
 		// FlxG.sound.playMusic(Paths.music('MenuMusic'), 0);
 
-		// Square.loadmouse();
+		// Crntu.loadmouse();
 
-		// FlxG.mouse.useSystemCursor = false;
+		FlxG.mouse.useSystemCursor = false;
 
-		// Square.loadmouse();
+		// Crntu.loadmouse();
 
 		// FlxG.sound.music.fadeIn(4, 0, .7);
 
@@ -67,18 +67,18 @@ class Start extends FlxState
 
 		#if flash
 		warnings = new FlxText(0, 0, 0, "this game wont work on flash lmao", 10, true);
-		warnings.setFormat("_sans", 16, FlxColor.WHITE);
+		warnings.setFormat("Comic Neue Angular Bold", 16, FlxColor.WHITE);
 		warnings.screenCenter(X);
 		add(warnings);
 		#end
 
-		ver = new FlxText(50, 0, 0, "Square " + Square.VER, 10, true);
-		ver.setFormat("_sans", 16, FlxColor.WHITE);
+		ver = new FlxText(50, 0, 0, "Crntu " + Crntu.VER, 10, true);
+		ver.setFormat("Comic Neue Angular Bold", 16, FlxColor.WHITE);
 		ver.screenCenter(X);
 		add(ver);
 
 		// tip = new FlxText(0, 0, 0, "Press escape in this state to close the game", 10, true);
-		// tip.setFormat("_sans", 16, FlxColor.WHITE);
+		// tip.setFormat("Comic Neue Angular Bold", 16, FlxColor.WHITE);
 		// add(tip);
 
 		backdrop.cameras = [FlxG.camera];
@@ -88,7 +88,7 @@ class Start extends FlxState
 		// FlxG.camera.fade(FlxColor.BLACK, 0.77, true);
 
 		begin = new FlxText(0, 0, 0, "PRESS SPACE TO BEGIN", 10, true);
-		begin.setFormat("_sans", 16, FlxColor.WHITE);
+		begin.setFormat("Comic Neue Angular Bold", 16, FlxColor.WHITE);
 		begin.screenCenter();
 		add(begin);
 
@@ -121,16 +121,35 @@ class Start extends FlxState
 			FlxG.camera.shake(0.05, 0.1);
 			FlxG.camera.flash(FlxColor.WHITE, 1);
 			FlxTween.color(begin, .77, FlxColor.WHITE, FlxColor.GREEN, {ease: FlxEase.quartInOut});
-			Square.log("Fading");
+			Crntu.log("Fading");
 			FlxG.camera.fade(FlxColor.BLACK, .77, false, function()
 			{
-				Square.log("Switching...");
+				Crntu.log("Switching...");
 				FlxG.switchState(new Menu());
 			});
 			FlxTween.tween(camera, {zoom: 30}, 2, {ease: FlxEase.quartInOut});
 		}
 
 		if (FlxG.keys.pressed.SPACE && canGo)
+		{
+			FlxTween.tween(camera, {zoom: 1.2}, .5, {ease: FlxEase.quartInOut});
+		}
+
+		if (FlxG.mouse.justReleased && canGo)
+		{
+			FlxG.camera.shake(0.05, 0.1);
+			FlxG.camera.flash(FlxColor.WHITE, 1);
+			FlxTween.color(begin, .77, FlxColor.WHITE, FlxColor.GREEN, {ease: FlxEase.quartInOut});
+			Crntu.log("Fading");
+			FlxG.camera.fade(FlxColor.BLACK, .77, false, function()
+			{
+				Crntu.log("Switching...");
+				FlxG.switchState(new Menu());
+			});
+			FlxTween.tween(camera, {zoom: 30}, 2, {ease: FlxEase.quartInOut});
+		}
+
+		if (FlxG.mouse.pressed && canGo)
 		{
 			FlxTween.tween(camera, {zoom: 1.2}, .5, {ease: FlxEase.quartInOut});
 		}
@@ -155,6 +174,6 @@ class Start extends FlxState
 		// FlxTween.tween(backdrop, {alpha: 0}, .5, {ease: FlxEase.quartInOut});
 		// ver.text = "Exiting...";
 		// ver.y = 300;
-		// Square.exitfunc(true);
+		// Crntu.exitfunc(true);
 	}
 }

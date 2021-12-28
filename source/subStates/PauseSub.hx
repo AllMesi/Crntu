@@ -17,6 +17,7 @@ class PauseSub extends FlxSubState
 {
 	var one:FlxText;
 	var bg:FlxSprite;
+
 	public function new()
 	{
 		super();
@@ -26,30 +27,30 @@ class PauseSub extends FlxSubState
 	{
 		super.create();
 
-    if (FlxG.sound.music.playing)
-		  FlxG.sound.music.pause();
+		if (FlxG.sound.music.playing)
+			FlxG.sound.music.pause();
 		bg = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.fromRGB(88, 88, 88, 255));
-    bg.y = 1700;
+		bg.y = 1700;
 		bg.scrollFactor.set();
 		add(bg);
 
-    Square.fps = 120;
+		Crntu.fps = 120;
 
-		Square.unloadmouse(false);
+		// Crntu.unloadmouse();
 
 		one = new FlxText(0, 0, 0, "Paused", 42);
 		one.alpha = 0;
-		one.setFormat('_sans', 42, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK, true);
+		one.setFormat("Comic Neue Angular Bold", 42, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK, true);
 		one.screenCenter();
 		add(one);
 
 		FlxTween.tween(one, {alpha: 1}, 0.4, {ease: FlxEase.quartInOut});
 		FlxTween.tween(bg, {y: bg.y - 1700}, 0.4, {ease: FlxEase.quartInOut});
 
-    new FlxTimer().start(.4, function(tmr:FlxTimer)
-    {
-      Square.fps = 30;
-    });
+		new FlxTimer().start(.4, function(tmr:FlxTimer)
+		{
+			Crntu.fps = 30;
+		});
 	}
 
 	override public function update(elapsed)
@@ -58,26 +59,26 @@ class PauseSub extends FlxSubState
 
 		if (FlxG.keys.justPressed.Q)
 		{
-      var bg = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.RED);
-      bg.alpha = 0;
-      bg.scrollFactor.set();
-      // add(bg);
-      // FlxTween.tween(bg, {alpha: 1}, 3.7, {ease: FlxEase.quartInOut});
-      FlxTween.tween(camera, {zoom: 3}, 2, {ease: FlxEase.quartInOut});
-      final pause = new GameOver();
-      openSubState(pause);
+			var bg = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.RED);
+			bg.alpha = 0;
+			bg.scrollFactor.set();
+			// add(bg);
+			// FlxTween.tween(bg, {alpha: 1}, 3.7, {ease: FlxEase.quartInOut});
+			FlxTween.tween(camera, {zoom: 3}, 2, {ease: FlxEase.quartInOut});
+			final pause = new GameOver();
+			openSubState(pause);
 		}
 
 		if (!FlxG.keys.pressed.ALT && FlxG.keys.justPressed.ENTER)
 		{
-      Square.fps = 120;
+			Crntu.fps = 120;
 			FlxTween.tween(one, {alpha: 0}, .4, {ease: FlxEase.quartInOut});
 			FlxTween.tween(bg, {alpha: 0, y: bg.y + 1700}, .4, {ease: FlxEase.quartInOut});
 
 			new FlxTimer().start(.4, function(tmr:FlxTimer)
 			{
 				FlxG.sound.music.play();
-				Square.fps = 0;
+				Crntu.fps = 0;
 				close();
 			});
 		}

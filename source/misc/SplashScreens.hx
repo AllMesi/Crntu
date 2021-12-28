@@ -21,8 +21,10 @@ class SplashScreens extends FlxState
 	override public function create()
 	{
 		randomTextThing = FlxG.random.getObject(rand());
+		FlxG.debugger.visible = true;
 		new FlxTimer().start(1, function(tmr:FlxTimer)
 		{
+			FlxG.debugger.visible = false;
 			var backdrop = new FlxBackdrop(Paths.image('hf'));
 			backdrop.cameras = [FlxG.camera];
 			backdrop.alpha = .3;
@@ -35,11 +37,11 @@ class SplashScreens extends FlxState
 			FlxG.camera.zoom += 3;
 
 			FlxTween.tween(camera, {zoom: 1}, .5, {ease: FlxEase.quartInOut});
-			Square.log("test log", false);
+			Crntu.log("test log", false);
 			FlxG.sound.playMusic(Paths.music('sw&zka'), 0);
-			FlxG.sound.music.fadeIn(4, 0, 1);
+			FlxG.sound.music.fadeIn(4, 0, 2);
 
-			Square.unloadmouse(false);
+			Crntu.unloadmouse();
 			FlxG.camera.fade(FlxColor.BLACK, 0.77, true, function()
 			{
 				FlxTween.tween(camera, {zoom: 1.16}, 12.32, {ease: FlxEase.linear});
@@ -70,7 +72,7 @@ class SplashScreens extends FlxState
 									});
 									new FlxTimer().start(1, function(tmr:FlxTimer)
 									{
-										FlxG.switchState(new menus.Start());
+										FlxG.switchState(new menus.Menu());
 									});
 								});
 							});
@@ -80,11 +82,11 @@ class SplashScreens extends FlxState
 			});
 
 			haxeflixel = new FlxText(0, 0, 0, "Made with Haxeflixel", 10, true);
-			haxeflixel.setFormat("_sans", 16, FlxColor.WHITE, CENTER);
+			haxeflixel.setFormat("Comic Neue Angular Bold", 16, FlxColor.WHITE, CENTER);
 			haxeflixel.screenCenter();
 
 			// me = new FlxText(0, 0, 0, "Made by AllMesi", 10, true);
-			// me.setFormat("_sans", 16, FlxColor.WHITE, CENTER);
+			// me.setFormat("Comic Neue Angular Bold", 16, FlxColor.WHITE, CENTER);
 			// me.screenCenter();
 			add(backdrop);
 			add(backdrop2);
@@ -99,7 +101,7 @@ class SplashScreens extends FlxState
 	{
 		if (FlxG.keys.justPressed.SPACE)
 		{
-			FlxG.switchState(new menus.Start());
+			FlxG.switchState(new menus.Menu());
 		}
 		super.update(elapsed);
 	}
