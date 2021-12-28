@@ -35,8 +35,10 @@ class All extends FlxSubState
 
 		cursor.loadGraphic(misc.Paths.image('ui/cursors/cursor9'), true, 14, 14);
 		var trail:FlxTrail = new FlxTrail(cursor, misc.Paths.image('ui/cursors/cursor9'), 1, 1, 1, .5);
-		add(trail);
 		add(cursor);
+		add(trail);
+
+    FlxG.mouse.visible = false;
 
 		texgffgt = new FlxText(0, 0, 0, "", 16, true);
 		texgffgt.setFormat("Comic Neue Angular Bold", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLUE, true);
@@ -73,6 +75,9 @@ class All extends FlxSubState
 				text.text = "";
 			});
 		}
+
+    cursor.x = FlxG.mouse.x - 7;
+    cursor.y = FlxG.mouse.y - 7;
 
 		super.update(elapsed);
 	}

@@ -25,7 +25,7 @@ import flixel.addons.ui.FlxUIButton;
 
 using StringTools;
 
-class Menu extends FlxTransitionableState
+class Menu extends FlxState
 {
 	inline static var minuteInMs = 1000 * 60;
 	inline static var hourInMs = minuteInMs * 60;
@@ -66,12 +66,6 @@ class Menu extends FlxTransitionableState
 
 	override function create()
 	{
-		FlxTransitionableState.defaultTransIn = new TransitionData();
-		FlxTransitionableState.defaultTransOut = new TransitionData();
-		transOut = FlxTransitionableState.defaultTransOut;
-
-		FlxG.switchState(new settings.Options());
-
 		grpOptionsTexts = new FlxTypedGroup<FlxText>();
 
 		ok = new FlxCamera();
@@ -94,7 +88,7 @@ class Menu extends FlxTransitionableState
 
 		fade.scrollFactor.set();
 
-		persistentUpdate = persistentDraw = true;
+		persistentUpdate = persistentDraw;
 
 		FlxG.cameras.reset(ok);
 		FlxG.cameras.add(ok2);
@@ -130,8 +124,8 @@ class Menu extends FlxTransitionableState
 		// backdrop.velocity.set(0, 150);
 		// add(backdrop);
 
-		final lol = new subStates.All();
-		openSubState(lol);
+		// final lol = new subStates.All();
+		// openSubState(lol);
 
 		title = new FlxText(50, 0, 0, "Crntu Menu", 18);
 		title.setFormat("Comic Neue Angular Bold", 16, FlxColor.WHITE, CENTER);

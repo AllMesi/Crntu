@@ -33,9 +33,15 @@ class SongSelectSub extends FlxSubState
 			Crntu.songStart('TheDrop', 100);
 		});
 
+		var button3 = new FlxButton(0, 0, "3", function()
+		{
+			Crntu.songStart('Classical', 70);
+		});
+
 		button2.x = (FlxG.width / 2) - (button2.width / 2);
 		button2.y = (FlxG.height / 2);
 		button2.loadGraphic(misc.Paths.image('ui/spritesheets/buttons/button'), true, 80, 20);
+		button2.alpha = 0;
 		add(button2);
 
 		var button1 = new FlxButton(0, 0, "2", function()
@@ -44,17 +50,27 @@ class SongSelectSub extends FlxSubState
 		});
 
 		button1.x = (FlxG.width / 2) - (button2.width / 2);
-		button1.y = (FlxG.height / 2) + 20;
+		button1.y = (FlxG.height / 2) + 26;
 		button1.loadGraphic(misc.Paths.image('ui/spritesheets/buttons/button'), true, 80, 20);
+		button1.alpha = 0;
 		add(button1);
+
+    button3.x = (FlxG.width / 2) - (button2.width / 2);
+		button3.y = (FlxG.height / 2) + 26 + 26;
+		button3.loadGraphic(misc.Paths.image('ui/spritesheets/buttons/button'), true, 80, 20);
+		button3.alpha = 0;
+		add(button3);
 
 		one = new FlxText(0, 0, 0, "Select Song (Q to cancel)", 42);
 		one.alpha = 0;
-		one.setFormat("Comic Neue Angular Bold", 42, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK, true);
+		one.setFormat("Comic Neue Angular Bold", 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK, true);
+		one.screenCenter(X);
 		add(one);
 
 		FlxTween.tween(one, {alpha: 1}, .4, {ease: FlxEase.quartInOut});
 		FlxTween.tween(bg, {alpha: .7}, .4, {ease: FlxEase.quartInOut});
+		FlxTween.tween(button2, {alpha: 1}, .4, {ease: FlxEase.quartInOut});
+		FlxTween.tween(button1, {alpha: 1}, .4, {ease: FlxEase.quartInOut});
 	}
 
 	override public function update(elapsed)

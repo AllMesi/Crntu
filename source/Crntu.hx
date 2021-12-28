@@ -620,8 +620,9 @@ class Crntu extends FlxState
 		new FlxTimer().start(.30, function(tmr:FlxTimer)
 		{
 			// loadmouse();
-			FlxG.switchState(new menus.SelectSong());
+			FlxG.switchState(new menus.Menu());
 			game.Play.curLevel = level;
+      FlxG.sound.music.stop();
 		});
 		log('Next level: $level');
 		game.Conductor.changeBPM(50);

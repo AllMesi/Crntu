@@ -60,8 +60,8 @@ class Play extends FlxState
 
 	private var camFollow:FlxObject;
 	private var strumLineNotes:FlxTypedGroup<FlxSprite>;
-	private var playerStrums:FlxTypedGroup<FlxSprite>;
 
+	// private var playerStrums:FlxTypedGroup<FlxSprite>;
 	private var camZooming:Bool = false;
 	private var camZoomingIntense:Bool = false;
 	private var curSong:String = "";
@@ -74,6 +74,7 @@ class Play extends FlxState
 	private var healthBar:FlxBar;
 
 	private var generatedMusic:Bool = false;
+	var fps = new FlxText(0, 0, 0, "FPS", 30, true);
 	private var countingDown:Bool = false;
 
 	private var healthHeads:FlxSprite;
@@ -83,22 +84,44 @@ class Play extends FlxState
 		persistentUpdate = true;
 		persistentDraw = true;
 
-		var bg = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.WHITE);
+		var bg = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		bg.scrollFactor.set();
-		add(bg);
+
 		var loadText = new FlxText(0, 0, 0, "Loading...", 30, true);
 		loadText.setFormat("Comic Neue Angular Bold", 20, FlxColor.BLACK, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLUE, true);
+		loadText.screenCenter();
 		add(loadText);
+
+		fps.setFormat("Comic Neue Angular Bold", 20, FlxColor.GREEN, CENTER);
+		fps.screenCenter(X);
+		add(fps);
+
+		misses = 0;
+		missClicks = 0;
+		score = 0;
+		totalBeats = 0;
+		updatingNotes = true;
+		canDie = true;
+		canPause = true;
+		FlxG.sound.playMusic(Paths.songs('cpp-neko/$curLevel'), 1);
 
 		new FlxTimer().start(.1, function(tmr:FlxTimer)
 		{
-			bg.alpha = 0;
-			loadText.alpha = 0;
+			// FlxTween.tween(healthBar, {alpha: 1}, 1, {ease: FlxEase.quartInOut});
+			// FlxTween.tween(healthBarBG, {alpha: 1}, 1, {ease: FlxEase.quartInOut});
+			// FlxTween.tween(lmao, {alpha: 1}, 1, {ease: FlxEase.quartInOut});
+			// FlxTween.tween(strumLine, {alpha: 0}, 3, {ease: FlxEase.quartInOut});
+			// FlxTween.tween(tip, {alpha: 0}, 3, {ease: FlxEase.quartInOut});
+			// FlxTween.tween(bg, {alpha: 0}, .30, {ease: FlxEase.quartInOut});
+			// FlxTween.tween(loadText, {alpha: 0}, 1, {ease: FlxEase.quartInOut});
+			// bg.alpha = 0;
+			// loadText.alpha = 0;
+			// FlxTween.tween(fade, {alpha: 0}, .2, {ease: FlxEase.linear});
 			// FlxG.sound.playMusic(Paths.songs('cpp-neko/') + curLevel + ".ogg", 1);
-			if (FlxG.sound.music.playing)
-			{
-				FlxG.sound.music.fadeOut(.77, 0);
-			}
+			// if (FlxG.sound.music.playing)
+			// {
+			// 	FlxG.sound.music.fadeOut(.77, 0);
+			// }
 			// new FlxTimer().start(3, function(tmr:FlxTimer)
 			// {
 			//   FlxG.sound.playMusic(Paths.songs('cpp-neko/$curLevel'), 1);
@@ -107,14 +130,34 @@ class Play extends FlxState
 			Crntu.fps = 0;
 			// Crntu.unloadmouse();
 
-			FlxG.camera.flash(FlxColor.BLACK, .30, function()
+			// FlxG.camera.flash(FlxColor.BLACK, .30, function()
+			// {
+			// 	setup();
+			// });
+
+			var timer = new haxe.Timer(1000);
+			timer.run = function()
 			{
-				setup();
-			});
+				fps.text = children.Info.currentFPS + "FPS";
+				fps.screenCenter(X);
+				// if (children.Info.currentFPS > 499)
+				// 	fps.setFormat("Comic Neue Angular Bold", 20, FlxColor.GREEN, CENTER);
+				// else if (children.Info.currentFPS < 500)
+				// 	fps.setFormat("Comic Neue Angular Bold", 20, FlxColor.YELLOW, CENTER);
+				// else if (children.Info.currentFPS < 200)
+				// 	fps.setFormat("Comic Neue Angular Bold", 20, FlxColor.RED, CENTER);
+			}
+
+			var timer2 = new haxe.Timer(30);
+			timer2.run = function()
+			{
+				lmao.text = "Score: " + score + " | Health: " + Math.round(health * 50) + "% | Misses: " + misses;
+				lmao.screenCenter(X);
+				missClickText.text = "MissClicks: " + missClicks;
+			}
 
 			lmao = new FlxText(FlxG.width / 2 - 235, FlxG.height * 0.9 - 20, 0, "", 20);
 			lmao.setFormat("Comic Neue Angular Bold", 16, FlxColor.WHITE, CENTER);
-			lmao.alpha = 0;
 			add(lmao);
 
 			missClickText = new FlxText(0, 0, 0, "", 20);
@@ -133,7 +176,7 @@ class Play extends FlxState
 			strumLineNotes = new FlxTypedGroup<FlxSprite>();
 			add(strumLineNotes);
 
-			playerStrums = new FlxTypedGroup<FlxSprite>();
+			// playerStrums = new FlxTypedGroup<FlxSprite>();
 
 			var swagCounter:Int = 0;
 
@@ -230,6 +273,7 @@ class Play extends FlxState
 			// healthHeads.scrollFactor.set();
 			// add(healthHeads);
 		});
+		add(bg);
 		super.create();
 	}
 
@@ -366,7 +410,7 @@ class Play extends FlxState
 			// if (player == 0)
 			// {
 			FlxG.sound.play(Paths.soundwav('drum'), .2, false);
-			playerStrums.add(babyArrow);
+			// playerStrums.add(babyArrow);
 			// }
 
 			switch (Math.abs(i + 1))
@@ -403,7 +447,7 @@ class Play extends FlxState
 		Crntu.log('added an arrow or whatever');
 	}
 
-	var sectionScored:Bool = false;
+	// var sectionScored:Bool = false;
 
 	override public function update(elapsed:Float)
 	{
@@ -411,10 +455,9 @@ class Play extends FlxState
 
 		if (updatingNotes)
 		{
-			lmao.text = "Score: " + score + " | Health: " + Math.round(health * 50) + "% | Misses: " + misses;
-			lmao.screenCenter(X);
 			Conductor.songPosition += FlxG.elapsed * 1000;
 		}
+
 		// else
 		// {
 		// 	lmao.text = "stats unavailable due to notes not updating";
@@ -441,11 +484,6 @@ class Play extends FlxState
 
 			final pause = new subStates.PauseSub();
 			openSubState(pause);
-		}
-
-		if (updatingNotes)
-		{
-			missClickText.text = "MissClicks: " + missClicks;
 		}
 
 		// healthHeads.setGraphicSize(Std.int(FlxMath.lerp(100, healthHeads.width, 0.98)));
@@ -511,7 +549,7 @@ class Play extends FlxState
 		{
 			switch (totalBeats)
 			{
-				case 163:
+				case 347:
 					Crntu.songNext('bopeebo');
 			}
 		}
@@ -624,7 +662,7 @@ class Play extends FlxState
 					notes.sort(FlxSort.byY, FlxSort.DESCENDING);
 			});
 		}
-		keyShit();
+		noteKeys();
 	}
 
 	private function popUpScore():Void
@@ -729,7 +767,7 @@ class Play extends FlxState
 		curSection += 1;
 	}
 
-	private function keyShit():Void
+	private function noteKeys():Void
 	{
 		// HOLDING
 		var up = FlxG.keys.anyPressed([W, UP, COMMA]);
@@ -825,41 +863,41 @@ class Play extends FlxState
 			});
 		}
 
-		playerStrums.forEach(function(spr:FlxSprite)
-		{
-			switch (spr.ID)
-			{
-				case 1:
-					if (upP && spr.animation.curAnim.name != 'confirm')
-						spr.animation.play('pressed');
-					if (upR)
-						spr.animation.play('static');
-				case 2:
-					if (rightP && spr.animation.curAnim.name != 'confirm')
-						spr.animation.play('pressed');
-					if (rightR)
-						spr.animation.play('static');
-				case 3:
-					if (downP && spr.animation.curAnim.name != 'confirm')
-						spr.animation.play('pressed');
-					if (downR)
-						spr.animation.play('static');
-				case 4:
-					if (leftP && spr.animation.curAnim.name != 'confirm')
-						spr.animation.play('pressed');
-					if (leftR)
-						spr.animation.play('static');
-			}
+		// playerStrums.forEach(function(spr:FlxSprite)
+		// {
+		// 	switch (spr.ID)
+		// 	{
+		// 		case 1:
+		// 			if (upP && spr.animation.curAnim.name != 'confirm')
+		// 				spr.animation.play('pressed');
+		// 			if (upR)
+		// 				spr.animation.play('static');
+		// 		case 2:
+		// 			if (rightP && spr.animation.curAnim.name != 'confirm')
+		// 				spr.animation.play('pressed');
+		// 			if (rightR)
+		// 				spr.animation.play('static');
+		// 		case 3:
+		// 			if (downP && spr.animation.curAnim.name != 'confirm')
+		// 				spr.animation.play('pressed');
+		// 			if (downR)
+		// 				spr.animation.play('static');
+		// 		case 4:
+		// 			if (leftP && spr.animation.curAnim.name != 'confirm')
+		// 				spr.animation.play('pressed');
+		// 			if (leftR)
+		// 				spr.animation.play('static');
+		// 	}
 
-			if (spr.animation.curAnim.name == 'confirm')
-			{
-				spr.centerOffsets();
-				spr.offset.x -= 13;
-				spr.offset.y -= 13;
-			}
-			else
-				spr.centerOffsets();
-		});
+		// 	if (spr.animation.curAnim.name == 'confirm')
+		// 	{
+		// 		spr.centerOffsets();
+		// 		spr.offset.x -= 13;
+		// 		spr.offset.y -= 13;
+		// 	}
+		// 	else
+		// 		spr.centerOffsets();
+		// });
 	}
 
 	function noteMiss():Void
