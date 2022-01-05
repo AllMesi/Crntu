@@ -69,6 +69,7 @@ class SongSelectSub extends FlxSubState
 
 		FlxTween.tween(one, {alpha: 1}, .4, {ease: FlxEase.quartInOut});
 		FlxTween.tween(bg, {alpha: .7}, .4, {ease: FlxEase.quartInOut});
+		FlxTween.tween(button3, {alpha: 1}, .4, {ease: FlxEase.quartInOut});
 		FlxTween.tween(button2, {alpha: 1}, .4, {ease: FlxEase.quartInOut});
 		FlxTween.tween(button1, {alpha: 1}, .4, {ease: FlxEase.quartInOut});
 	}

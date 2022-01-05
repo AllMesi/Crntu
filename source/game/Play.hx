@@ -112,8 +112,8 @@ class Play extends FlxState
 			// FlxTween.tween(lmao, {alpha: 1}, 1, {ease: FlxEase.quartInOut});
 			// FlxTween.tween(strumLine, {alpha: 0}, 3, {ease: FlxEase.quartInOut});
 			// FlxTween.tween(tip, {alpha: 0}, 3, {ease: FlxEase.quartInOut});
-			// FlxTween.tween(bg, {alpha: 0}, .30, {ease: FlxEase.quartInOut});
-			// FlxTween.tween(loadText, {alpha: 0}, 1, {ease: FlxEase.quartInOut});
+			FlxTween.tween(bg, {alpha: 0}, .30, {ease: FlxEase.quartInOut});
+			FlxTween.tween(loadText, {alpha: 0}, 1, {ease: FlxEase.quartInOut});
 			// bg.alpha = 0;
 			// loadText.alpha = 0;
 			// FlxTween.tween(fade, {alpha: 0}, .2, {ease: FlxEase.linear});
@@ -384,7 +384,7 @@ class Play extends FlxState
 		{
 			FlxG.log.add(i);
 			Crntu.log('$i', false, 'a', false);
-			var babyArrow:FlxSprite = new FlxSprite(-273, strumLine.y);
+			var babyArrow:FlxSprite = new FlxSprite(0, strumLine.y);
 			var arrTex = FlxAtlasFrames.fromSparrow(Paths.image('ui/game/spritesheets/notes'), Paths.xml('images/ui/game/spritesheets/notes'));
 			babyArrow.frames = arrTex;
 			babyArrow.animation.addByPrefix('green', 'arrowUP');
@@ -528,10 +528,10 @@ class Play extends FlxState
 		// 	camFollow.setPosition(boyfriend.getGraphicMidpoint().x - 100, boyfriend.getGraphicMidpoint().y - 100);
 		// }
 
-		if (camZooming)
-		{
-			FlxG.camera.zoom = FlxMath.lerp(1.00, FlxG.camera.zoom, 0.96);
-		}
+		// if (camZooming)
+		// {
+		// 	FlxG.camera.zoom = FlxMath.lerp(1.00, FlxG.camera.zoom, 0.96);
+		// }
 
 		if (camZoomingIntense)
 		{
@@ -545,36 +545,46 @@ class Play extends FlxState
 
 		FlxG.watch.addQuick("beatShit", totalBeats);
 
-		if (curSong == 'TheDrop')
+		// if (curSong == 'TheDrop')
+		// {
+		// 	switch (totalBeats)
+		// 	{
+		// 		case 347:
+		// 			Crntu.songNext('bopeebo');
+		// 	}
+		// }
+
+		if (curSong == 'Classical')
 		{
 			switch (totalBeats)
 			{
-				case 347:
-					Crntu.songNext('bopeebo');
+				case 29:
+					trace('shake??');
+					FlxG.camera.shake(.05, 2);
 			}
 		}
 
-		if (curSong == 'Bopeebo')
-		{
-			switch (totalBeats)
-			{
-				case 127:
-					Crntu.songStart('fresh', 100);
-			}
-		}
+		// if (curSong == 'Bopeebo')
+		// {
+		// 	switch (totalBeats)
+		// 	{
+		// 		case 127:
+		// 			Crntu.songStart('fresh', 100);
+		// 	}
+		// }
 
-		if (curSong == 'Fresh')
-		{
-			switch (totalBeats)
-			{
-				case 0:
-					camZoomingIntense = true;
-				case 16:
-					camZoomingIntense = false;
-					totalBeats = 0;
-					camZooming = true;
-			}
-		}
+		// if (curSong == 'Fresh')
+		// {
+		// 	switch (totalBeats)
+		// 	{
+		// 		case 0:
+		// 			camZoomingIntense = true;
+		// 		case 16:
+		// 			camZoomingIntense = false;
+		// 			totalBeats = 0;
+		// 			camZooming = true;
+		// 	}
+		// }
 
 		everyBeat();
 		everyStep();
@@ -1077,10 +1087,13 @@ class Play extends FlxState
 			{
 				lastBeat += Conductor.crochet;
 
-				if (camZooming && FlxG.camera.zoom < 1.35 && totalBeats % 2 == 0)
-					FlxG.camera.zoom += 0.024;
+				// if (camZooming && FlxG.camera.zoom < 1.35 && totalBeats % 2 == 0)
+				// 	FlxG.camera.zoom += 0.024;
 
-				totalBeats += 1;
+				if (camZooming && totalBeats % 2 == 0)
+          FlxG.camera.zoom += 0.054;
+
+					totalBeats += 1;
 			}
 		}
 	}
@@ -1101,6 +1114,6 @@ class Play extends FlxState
 	public function new()
 	{
 		super();
-		trace('line 1066');
+		trace('line 1117');
 	}
 }
